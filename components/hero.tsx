@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ArrowRight, Play } from "lucide-react";
-import { hero } from "@/lib/content";
+import { ArrowRight } from "lucide-react";
+import { hero, bookingHref } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 
 export function Hero() {
@@ -36,13 +36,12 @@ export function Hero() {
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ButtonLink href="#planos" variant="gold">
-              Inscrever agora
+            <ButtonLink href={bookingHref} variant="gold">
+              Avaliação física gratuita
               <ArrowRight className="h-4 w-4" />
             </ButtonLink>
-            <ButtonLink href="#metodo" variant="onimage">
-              <Play className="h-4 w-4" />
-              Como funciona
+            <ButtonLink href="#planos" variant="onimage">
+              Ver planos e preços
             </ButtonLink>
           </div>
         </div>

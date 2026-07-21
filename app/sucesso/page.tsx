@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand";
+import { plans } from "@/lib/content";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Inscrição confirmada" };
@@ -11,6 +12,7 @@ export default async function Sucesso({
   searchParams: Promise<{ plano?: string }>;
 }) {
   const { plano } = await searchParams;
+  const planName = plans.find((p) => p.slug === plano)?.name;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-ink px-6 text-center text-cream">
@@ -20,8 +22,8 @@ export default async function Sucesso({
       </span>
       <h1 className="mt-8 max-w-lg text-[clamp(2rem,5vw,3rem)]">Bem-vindo ao Connect Club!</h1>
       <p className="mt-4 max-w-md text-cream/75">
-        A tua inscrição{plano ? ` no plano ${plano}` : ""} foi confirmada. Vais receber um email com
-        os próximos passos para marcares a tua primeira sessão assistida.
+        A tua inscrição{planName ? ` no plano ${planName}` : ""} foi confirmada. Vais receber um
+        email com os próximos passos para marcares a tua primeira sessão.
       </p>
       <Link href="/" className="btn btn-gold mt-9">
         Voltar ao início

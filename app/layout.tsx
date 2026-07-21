@@ -20,23 +20,24 @@ const siteUrl = "https://connectclub.pt";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Connect Club — Estúdio de treino 100% acompanhado por personal",
+    default: "Connect Club — Estúdio de treino personalizado no Porto",
     template: "%s · Connect Club",
   },
   description:
-    "No Connect Club nunca treinas sozinho. Cada sessão é conduzida por um personal trainer, com plano à tua medida, avaliação física e resultados que ficam. Inscreve-te online.",
+    "Estúdio de treino personalizado no Porto. Personal training, hybrid, aulas de grupo, nutrição e massagem, com acompanhamento próximo e plano à tua medida. Avaliação física gratuita.",
   keywords: [
-    "personal trainer",
-    "estúdio de treino",
-    "treino assistido",
-    "treino individual",
-    "avaliação física",
+    "personal trainer Porto",
+    "estúdio de treino Porto",
+    "treino personalizado",
+    "hybrid training",
+    "nutrição",
+    "avaliação física gratuita",
     "Connect Club",
   ],
   openGraph: {
-    title: "Connect Club — Treino sempre com um personal ao teu lado",
+    title: "Connect Club — Estúdio de treino personalizado no Porto",
     description:
-      "Estúdio de treino assistido. Cada sessão conduzida por um personal trainer. Plano à tua medida e acompanhamento real.",
+      "5 pilares, 1 propósito: personal training, hybrid, aulas de grupo, nutrição e massagem. Acompanhamento próximo e avaliação física gratuita.",
     url: siteUrl,
     siteName: "Connect Club",
     locale: "pt_PT",

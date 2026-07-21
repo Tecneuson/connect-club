@@ -19,7 +19,7 @@ export function Testimonials() {
           <div>
             <span className="eyebrow eyebrow--ondark">Depoimentos</span>
             <h2 className="mt-4 max-w-xl text-cream text-[clamp(2rem,4.2vw,2.9rem)]">
-              Histórias de quem deixou de treinar sozinho.
+              Histórias de quem encontrou o seu ritmo.
             </h2>
           </div>
           <div className="flex items-center gap-4">

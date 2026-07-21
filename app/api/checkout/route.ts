@@ -3,7 +3,7 @@ import { getStripe } from "@/lib/stripe";
 import { plans } from "@/lib/content";
 
 export async function POST(req: Request) {
-  let plan = "performance";
+  let plan = "pt-2x";
   let email: string | undefined;
   try {
     const body = await req.json();

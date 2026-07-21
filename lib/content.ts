@@ -1,23 +1,33 @@
 /* -----------------------------------------------------------------------------
    Connect Club — todo o texto e dados do site num só sítio (pt-PT).
+   Baseado no briefing real: estúdio de treino personalizado no Porto.
 ----------------------------------------------------------------------------- */
 
 export const brand = {
   name: "Connect Club",
-  tagline: "Estúdio de treino assistido",
-  phoneDisplay: "+351 210 000 000",
-  phone: "+351210000000",
+  tagline: "Estúdio de treino personalizado",
+  slogan: "5 pilares, 1 propósito",
+  city: "Porto",
+  address: "Edifício do Fluvial, Rua do Aleixo da Mota S/N, Porto",
   email: "geral@connectclub.pt",
-  address: "Rua do Movimento, 100 — Lisboa",
-  instagram: "https://instagram.com/connectclub",
-  social: [
-    { label: "Instagram", href: "https://instagram.com/connectclub", icon: "instagram" as const },
-    { label: "YouTube", href: "https://youtube.com/@connectclub", icon: "youtube" as const },
+  phoneDisplay: "+351 220 000 000",
+  phone: "+351220000000",
+  hours: [
+    { day: "Segunda a sexta", time: "06h30 – 21h00" },
+    { day: "Sábado", time: "08h00 – 14h00" },
+    { day: "Domingo", time: "09h00 – 13h00" },
   ],
 };
 
+/** mailto pré-preenchido para marcar a avaliação física gratuita */
+export const bookingHref = `mailto:${brand.email}?subject=${encodeURIComponent(
+  "Avaliação física gratuita — Connect Club",
+)}&body=${encodeURIComponent(
+  "Olá! Gostava de marcar a minha avaliação física gratuita.\n\nNome:\nContacto:\nMelhor horário:",
+)}`;
+
 export const nav = [
-  { label: "O estúdio", href: "#estudio" },
+  { label: "Pilares", href: "#pilares" },
   { label: "Método", href: "#metodo" },
   { label: "Planos", href: "#planos" },
   { label: "Depoimentos", href: "#depoimentos" },
@@ -25,78 +35,84 @@ export const nav = [
 ];
 
 export const hero = {
-  eyebrow: "Estúdio de treino assistido",
-  title: ["O teu treino,", "sempre com um personal ao teu lado."],
+  eyebrow: "Estúdio de treino personalizado · Porto",
+  title: ["O teu treino,", "guiado por quem percebe."],
   subtitle:
-    "No Connect Club nunca treinas sozinho. Cada sessão é conduzida por um personal trainer, com um plano feito para o teu corpo, a tua rotina e o teu objetivo.",
+    "No Connect Club tens um plano feito à tua medida e um personal a acompanhar-te de perto — com a liberdade de treinares também por tua conta. Personal training, hybrid, aulas de grupo, nutrição e massagem, num só estúdio.",
   stats: [
-    { value: "1:1", label: "Acompanhamento real" },
-    { value: "100%", label: "Sessões assistidas" },
-    { value: "0 €", label: "Taxa de inscrição" },
+    { value: "5", label: "pilares num só estúdio" },
+    { value: "2x", label: "treinos autónomos por semana" },
+    { value: "0 €", label: "taxa de inscrição" },
   ],
 };
 
-export const intro = {
-  eyebrow: "O estúdio",
-  title: "Aqui, ninguém treina em piloto automático.",
+export const pilares = {
+  eyebrow: "5 pilares, 1 propósito",
+  title: "Uma abordagem completa, num só estúdio.",
   subtitle:
-    "Esquece o ginásio cheio e o treino que não sabes se estás a fazer bem. No Connect Club, cada movimento é orientado por um profissional que sabe o teu nome e a tua meta.",
-  cards: [
+    "Não é só treino. É saúde, performance e bem-estar tratados em conjunto — com acompanhamento próximo e uma comunidade que te puxa para a frente.",
+  items: [
     {
-      icon: "user-check",
-      title: "Personal dedicado",
-      text: "Um treinador ao teu lado do aquecimento ao alongamento — a corrigir, a motivar e a ajustar a carga.",
+      icon: "dumbbell",
+      title: "Personal Training",
+      text: "Sessões individuais com um treinador dedicado ao teu objetivo e ao teu ritmo.",
     },
     {
-      icon: "clipboard",
-      title: "Avaliação física",
-      text: "Começamos por perceber o teu ponto de partida: composição corporal, mobilidade e histórico.",
+      icon: "hybrid",
+      title: "Hybrid Training",
+      text: "Força e condicionamento combinados para resultados mais completos.",
     },
     {
-      icon: "target",
-      title: "Treino à tua medida",
-      text: "Nada de planos genéricos. O programa é montado e revisto só para ti.",
+      icon: "group",
+      title: "Aulas de Grupo",
+      text: "Turmas reduzidas, energia de equipa e a mesma atenção ao detalhe.",
     },
     {
-      icon: "calendar",
-      title: "Horário flexível",
-      text: "Marca as tuas sessões nos horários que encaixam na tua rotina, com hora marcada.",
+      icon: "nutrition",
+      title: "Nutrição",
+      text: "Orientação alimentar alinhada com o teu treino e a tua rotina.",
+    },
+    {
+      icon: "massage",
+      title: "Massagem",
+      text: "Recuperação e bem-estar para treinares mais e melhor.",
     },
   ],
-  stat: {
-    value: "92%",
-    label: "dos alunos mantêm a frequência depois de 90 dias com acompanhamento individual.",
+  highlight: {
+    value: "2x / semana",
+    label:
+      "de treino autónomo incluído — treina no teu tempo, sempre com o plano do teu personal.",
   },
 };
 
 export const method = {
-  eyebrow: "O método Connect",
-  title: "Como funciona treinar connosco.",
+  eyebrow: "Como funciona",
+  title: "Simples, do primeiro dia aos resultados.",
   subtitle:
-    "Um processo simples e conduzido do início ao fim. Só precisas de aparecer — do resto tratamos nós.",
+    "Sem burocracia. Marcas a tua avaliação gratuita e nós tratamos do resto.",
   steps: [
     {
       n: "01",
-      title: "Avaliação inicial",
-      text: "Bioimpedância, mobilidade e uma conversa franca sobre onde queres chegar.",
+      title: "Avaliação física gratuita",
+      text: "Bioimpedância, mobilidade e uma conversa sobre os teus objetivos. Sem compromisso.",
       image: "/images/coaching.jpg",
     },
     {
       n: "02",
       title: "Plano à tua medida",
-      text: "Montamos o teu programa de treino a pensar no objetivo, na rotina e nas limitações.",
+      text: "Montamos o teu programa a pensar na tua idade, na rotina e no teu histórico.",
       image: "/images/feature-1.jpg",
     },
     {
       n: "03",
-      title: "Treino assistido",
-      text: "Todas as sessões com um personal ao lado, a garantir técnica e progressão.",
+      title: "Treino acompanhado + autónomo",
+      text: "Sessões com o teu personal e treinos autónomos por semana, sempre com o teu plano.",
       image: "/images/feature-3.jpg",
     },
     {
       n: "04",
-      title: "Reavaliação",
-      text: "Em cada ciclo medimos a evolução e ajustamos a rota para não estagnares.",
+      title: "Reavaliação e evolução",
+      text: "Medimos os resultados e ajustamos a rota para continuares a evoluir.",
       image: "/images/feature-2.jpg",
     },
   ],
@@ -104,110 +120,114 @@ export const method = {
 
 export const why = {
   eyebrow: "Porque funciona",
-  title: "Resultado não é sorte. É acompanhamento.",
+  title: "Resultados que ficam, ao teu ritmo.",
   subtitle:
-    "A diferença de treinar assistido nota-se na constância, na técnica e na motivação que não te deixa desistir à terceira semana.",
+    "Acompanhamento próximo, plano personalizado e a autonomia certa. É isto que faz a diferença — sobretudo se já tiveste experiências que não correram bem.",
   items: [
     {
-      title: "Fazes o exercício certo, da forma certa",
-      text: "A correção de técnica em tempo real reduz o risco de lesão e acelera os ganhos.",
+      title: "Acompanhamento altamente individualizado",
+      text: "Um treinador que sabe o teu nome, o teu histórico e o teu objetivo. Correção de técnica em cada sessão, para treinares em segurança.",
     },
     {
-      title: "Progressão que respeita o teu corpo",
-      text: "A carga sobe quando estás preparado — nem antes, nem depois. É isso que gera evolução contínua.",
+      title: "Autonomia sem perder o rumo",
+      text: "Além das sessões com o personal, treinas por tua conta com o plano definido para ti. Mais consistência, mais resultados.",
     },
     {
-      title: "Constância que se sustenta",
-      text: "Hora marcada e alguém à tua espera: a presença deixa de depender só da força de vontade.",
+      title: "Saúde, performance e longevidade",
+      text: "Do emagrecimento à reabilitação, o foco é sentires-te melhor e viveres com mais qualidade — hoje e daqui a 20 anos.",
     },
     {
-      title: "Motivação a sério",
-      text: "Um profissional que celebra cada conquista e ajusta o plano quando a vida aperta.",
+      title: "Uma comunidade forte e próxima",
+      text: "Turmas reduzidas e um ambiente onde cada pessoa é acompanhada. Aqui não és mais um número.",
     },
   ],
   widget: {
-    title: "Frequência dos alunos",
-    metric: "3,4x",
-    caption: "por semana, em média",
-    barLabel: "Frequência semanal",
+    title: "Acompanhamento próximo",
+    metric: "1:1",
+    caption: "atenção real em cada treino",
+    barLabel: "Evolução dos alunos",
   },
 };
 
 export const plans = [
   {
-    slug: "essencial",
-    envKey: "STRIPE_PRICE_ESSENCIAL",
-    name: "Essencial",
-    price: "149 €",
+    slug: "pt-1x",
+    envKey: "STRIPE_PRICE_PT_1X",
+    name: "1x / semana",
+    price: "142,80 €",
     period: "/mês",
-    blurb: "Para começar com consistência.",
+    blurb: "Para manter a consistência.",
     highlight: false,
     features: [
-      "2 sessões assistidas por semana",
-      "Avaliação física inicial",
+      "1 sessão de personal training por semana",
+      "+ 2 treinos autónomos por semana",
+      "Avaliação física gratuita",
       "Plano de treino personalizado",
       "Acompanhamento pela app",
     ],
-    cta: "Escolher o Essencial",
+    cta: "Escolher 1x / semana",
   },
   {
-    slug: "performance",
-    envKey: "STRIPE_PRICE_PERFORMANCE",
-    name: "Performance",
-    price: "149 €",
+    slug: "pt-2x",
+    envKey: "STRIPE_PRICE_PT_2X",
+    name: "2x / semana",
+    price: "268,80 €",
     period: "/mês",
-    blurb: "O preferido de quem quer evoluir a sério.",
+    blurb: "O equilíbrio perfeito. O preferido.",
     highlight: true,
     features: [
-      "3 sessões assistidas por semana",
+      "2 sessões de personal training por semana",
+      "+ 2 treinos autónomos por semana",
       "Avaliação física a cada 8 semanas",
       "Plano de treino + orientação nutricional",
       "Prioridade na marcação",
-      "Acompanhamento pela app",
     ],
-    cta: "Escolher o Performance",
+    cta: "Escolher 2x / semana",
   },
   {
-    slug: "ilimitado",
-    envKey: "STRIPE_PRICE_ILIMITADO",
-    name: "Ilimitado",
-    price: "149 €",
+    slug: "pt-3x",
+    envKey: "STRIPE_PRICE_PT_3X",
+    name: "3x / semana",
+    price: "378 €",
     period: "/mês",
-    blurb: "Treino livre, sempre acompanhado.",
+    blurb: "Evolução ao máximo.",
     highlight: false,
     features: [
-      "Sessões assistidas ilimitadas",
+      "3 sessões de personal training por semana",
+      "Treino autónomo livre",
       "Reavaliação mensal completa",
       "Plano de treino + nutrição + recuperação",
-      "Agenda prioritária e flexível",
-      "Apoio direto com o teu personal",
+      "Prioridade máxima na agenda",
     ],
-    cta: "Escolher o Ilimitado",
+    cta: "Escolher 3x / semana",
   },
 ];
 
 export type Plan = (typeof plans)[number];
 
+export const plansNote =
+  "Também tens aulas de grupo a partir de 27,20 €/mês. Descontos de família (10%) e Member Get Member (15%). Sem taxa de inscrição e sem fidelização.";
+
 export const testimonials = [
   {
     quote:
-      "Nunca consegui manter uma rotina de treino até vir para o Connect. Ter alguém à minha espera e a corrigir cada exercício mudou tudo. Em 4 meses perdi 9 kg e ganhei confiança.",
-    name: "Marina Alves",
-    role: "Aluna há 6 meses",
+      "Já tinha desistido de ginásios antes — nunca me sentia acompanhada. Aqui é hora marcada, atenção total e um plano à minha medida. Aos 56, sinto-me melhor do que aos 40.",
+    name: "Fernanda Costa",
+    role: "Aluna há 7 meses",
     image: "/images/t2.jpg",
   },
   {
     quote:
-      "O acompanhamento é de outro nível. O meu personal ajusta o treino conforme o meu dia, a lesão no ombro desapareceu e hoje levanto cargas que não imaginava.",
-    name: "Rafael Nogueira",
+      "Vim por causa de dores nas costas e fiquei pela energia. O acompanhamento é próximo e, nos dias sem sessão, treino sozinho com o meu plano. Faz toda a diferença.",
+    name: "Joaquim Ferreira",
     role: "Aluno há 1 ano",
     image: "/images/t1.jpg",
   },
   {
     quote:
-      "Sou ocupado e detestava ginásios cheios. Aqui é hora marcada, atenção total e evolução real. Passou a ser a melhor parte do meu dia.",
-    name: "Diego Santos",
-    role: "Aluno há 8 meses",
+      "Entre o trabalho e a família não tinha tempo nem cabeça para treinar. O plano à medida e a liberdade dos treinos autónomos mudaram isso por completo.",
+    name: "Ricardo Matos",
+    role: "Aluno há 5 meses",
     image: "/images/t3.jpg",
   },
 ];
@@ -215,40 +235,41 @@ export const testimonials = [
 export const faq = {
   eyebrow: "Perguntas frequentes",
   title: "Tudo o que precisas de saber antes de começar.",
-  ctaText: "Ainda com dúvidas? Fala connosco e marca uma visita ao estúdio.",
+  ctaText:
+    "Ainda com dúvidas? Marca a tua avaliação física gratuita e vem conhecer o estúdio, sem compromisso.",
   items: [
     {
-      q: "Preciso de já treinar ou ter experiência?",
-      a: "Não. A maioria dos nossos alunos começou do zero. Como cada sessão é acompanhada por um personal, aprendes a técnica correta desde o primeiro dia, ao teu ritmo.",
+      q: "Preciso de experiência para começar?",
+      a: "Não. Muitos dos nossos alunos começaram do zero ou depois de anos parados. Como tens sempre um personal a acompanhar, aprendes a técnica correta desde o primeiro dia, ao teu ritmo.",
     },
     {
-      q: "O treino é individual ou em grupo?",
-      a: "O treino é sempre assistido por um personal trainer. Trabalhamos em formato individual e em pequenos grupos supervisionados, garantindo atenção e correção a todos.",
+      q: "Posso treinar sozinho?",
+      a: "Podes — e faz parte do método. Além das sessões com o teu personal, tens 2 treinos autónomos por semana, sempre a seguir o plano definido para ti. Mais consistência e mais autonomia.",
     },
     {
-      q: "Como funciona a inscrição e o pagamento?",
-      a: "A inscrição é 100% online e segura, processada pela Stripe. Escolhes o plano, preenches os teus dados e ficas logo com acesso para marcar a primeira sessão.",
+      q: "Que serviços estão incluídos?",
+      a: "O Connect Club assenta em 5 pilares: personal training, hybrid training, aulas de grupo, nutrição e massagem. Uma abordagem completa de saúde, performance e bem-estar.",
     },
     {
-      q: "Posso cancelar quando quiser?",
-      a: "Sim. Os planos são mensais e sem fidelização. Podes pausar ou cancelar a qualquer momento, sem penalizações.",
+      q: "Como começo?",
+      a: "Marca a tua avaliação física gratuita. Fazemos bioimpedância e mobilidade, conversamos sobre os teus objetivos e mostramos-te o estúdio — tudo sem compromisso.",
     },
     {
-      q: "Como marco as minhas sessões?",
-      a: "Depois de te inscreveres, marcas pela app nos horários disponíveis. Tudo com hora marcada para nunca apanhares fila nem máquinas ocupadas.",
+      q: "Há fidelização ou taxa de inscrição?",
+      a: "Não. Sem taxa de inscrição e sem fidelização — cancela quando quiseres. Ainda temos descontos de família (10%) e Member Get Member (15%).",
     },
     {
-      q: "Tenho avaliação física incluída?",
-      a: "Sim. Todos os planos incluem avaliação física inicial. Nos planos Performance e Ilimitado, as reavaliações são mais frequentes para acompanhar a tua evolução de perto.",
+      q: "Onde ficam e a que horas?",
+      a: "Estamos no Edifício do Fluvial, Rua do Aleixo da Mota, no Porto. Horário: segunda a sexta 06h30–21h00, sábado 08h00–14h00 e domingo 09h00–13h00.",
     },
   ],
 };
 
 export const finalCta = {
   eyebrow: "Vamos começar",
-  title: "A tua primeira sessão pode ser esta semana.",
+  title: "A tua avaliação gratuita pode ser esta semana.",
   subtitle:
-    "Escolhe o teu plano e começa hoje. Inscrição 100% online e segura, sem fidelização e com o acompanhamento sempre incluído.",
+    "Vem conhecer o estúdio e o método, sem compromisso. Ou escolhe já o teu plano e começa a treinar.",
   image: "/images/cta.jpg",
 };
 
@@ -264,6 +285,6 @@ export const checkout = {
   secure: "Pagamento seguro processado pela Stripe",
   terms: "Sem fidelização · cancela quando quiseres · cobrança mensal",
   notConfigured:
-    "Os pagamentos ainda não estão ativos neste ambiente. Configura as chaves da Stripe em .env.local para ativar a compra.",
+    "Versão de demonstração: o pagamento com cartão fica ativo assim que a conta Stripe do Connect Club for ligada.",
   error: "Não foi possível iniciar o pagamento. Tenta novamente daqui a instantes.",
 };

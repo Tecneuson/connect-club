@@ -1,65 +1,67 @@
 import Image from "next/image";
-import { UserCheck, ClipboardList, Target, CalendarClock, type LucideIcon } from "lucide-react";
-import { intro } from "@/lib/content";
+import Link from "next/link";
+import { Dumbbell, Zap, Users, Apple, Flower2, ArrowRight, type LucideIcon } from "lucide-react";
+import { pilares, bookingHref } from "@/lib/content";
 
 const icons: Record<string, LucideIcon> = {
-  "user-check": UserCheck,
-  clipboard: ClipboardList,
-  target: Target,
-  calendar: CalendarClock,
+  dumbbell: Dumbbell,
+  hybrid: Zap,
+  group: Users,
+  nutrition: Apple,
+  massage: Flower2,
 };
 
 export function Intro() {
   return (
-    <section id="estudio" className="section bg-sand">
+    <section id="pilares" className="section bg-sand">
       <div className="container-x">
         <div className="grid gap-6 md:grid-cols-2 md:items-end">
           <div>
-            <span className="eyebrow">{intro.eyebrow}</span>
-            <h2 className="mt-4 max-w-xl text-[clamp(2rem,4.2vw,2.9rem)]">{intro.title}</h2>
+            <span className="eyebrow">{pilares.eyebrow}</span>
+            <h2 className="mt-4 max-w-xl text-[clamp(2rem,4.2vw,2.9rem)]">{pilares.title}</h2>
           </div>
           <p className="max-w-md text-muted md:justify-self-end md:text-right">
-            {intro.subtitle}
+            {pilares.subtitle}
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-12">
-          {/* Image */}
-          <div className="relative min-h-[340px] overflow-hidden rounded-3xl lg:col-span-5 lg:min-h-full">
+        {/* 5 pilares */}
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {pilares.items.map((item) => {
+            const Icon = icons[item.icon] ?? Dumbbell;
+            return (
+              <div key={item.title} className="card flex flex-col p-6">
+                <span className="icon-badge">
+                  <Icon className="h-5 w-5" strokeWidth={1.8} />
+                </span>
+                <h3 className="mt-5 text-lg">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Diferenciador: treino autónomo */}
+        <div className="mt-6 grid overflow-hidden rounded-3xl bg-ink lg:grid-cols-2">
+          <div className="relative min-h-[280px] lg:min-h-full">
             <Image
               src="/images/coaching.jpg"
-              alt="Personal trainer ajudando aluna com halteres durante o treino no estúdio"
+              alt="Treinadora a acompanhar de perto o treino de um aluno no estúdio"
               fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="chip !text-cream">Do aquecimento ao alongamento, sempre acompanhado</p>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink/60 lg:to-ink" />
           </div>
-
-          {/* Cards + stat */}
-          <div className="grid gap-5 sm:grid-cols-2 lg:col-span-7">
-            {intro.cards.map((card) => {
-              const Icon = icons[card.icon] ?? Target;
-              return (
-                <div key={card.title} className="card p-6 sm:p-7">
-                  <span className="icon-badge">
-                    <Icon className="h-5 w-5" strokeWidth={1.8} />
-                  </span>
-                  <h3 className="mt-5 text-xl">{card.title}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-muted">{card.text}</p>
-                </div>
-              );
-            })}
-
-            <div className="rounded-3xl bg-ink p-7 text-cream sm:col-span-2">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-                <span className="font-display text-6xl font-medium text-gold">{intro.stat.value}</span>
-                <p className="max-w-md text-cream/75">{intro.stat.label}</p>
-              </div>
-            </div>
+          <div className="flex flex-col justify-center gap-5 p-8 text-cream sm:p-12">
+            <span className="font-display text-5xl font-medium text-gold sm:text-6xl">
+              {pilares.highlight.value}
+            </span>
+            <p className="max-w-md text-lg text-cream/80">{pilares.highlight.label}</p>
+            <Link href={bookingHref} className="btn btn-gold self-start">
+              Marcar avaliação gratuita
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Check, ShieldCheck, Sparkles } from "lucide-react";
-import { plans } from "@/lib/content";
+import { plans, plansNote } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 
 export function Pricing() {
@@ -79,7 +79,9 @@ export function Pricing() {
           })}
         </div>
 
-        <p className="mt-8 flex items-center justify-center gap-2 text-sm text-muted">
+        <p className="mx-auto mt-10 max-w-2xl text-center text-sm text-muted">{plansNote}</p>
+
+        <p className="mt-4 flex items-center justify-center gap-2 text-sm text-muted">
           <ShieldCheck className="h-4 w-4 text-gold-600" />
           Pagamento seguro processado pela Stripe · cancela quando quiseres
         </p>
