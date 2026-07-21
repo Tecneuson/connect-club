@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Plus, Check, TrendingUp } from "lucide-react";
+import { Plus, Check } from "lucide-react";
 import { why } from "@/lib/content";
 
 export function WhyItWorks() {
   const [open, setOpen] = useState(0);
-  const bars = [55, 68, 74, 82, 88, 92];
 
   return (
     <section className="section bg-sand">
@@ -52,39 +51,19 @@ export function WhyItWorks() {
           </div>
         </div>
 
-        {/* Image + floating widget */}
-        <div className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
-            <Image
-              src="/images/why.jpg"
-              alt="Aluno treinando com o acompanhamento de um personal trainer"
-              fill
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-          </div>
-
-          <div className="absolute -bottom-6 -left-3 w-[16rem] rounded-2xl border border-ink/10 bg-cream/85 p-5 shadow-[0_24px_50px_-24px_rgba(25,25,25,0.5)] backdrop-blur-md sm:-left-6">
-            <div className="flex items-center gap-2 text-gold-600">
-              <TrendingUp className="h-4 w-4" />
-              <span className="text-xs font-medium uppercase tracking-wide">{why.widget.title}</span>
-            </div>
-            <div className="mt-2 flex items-end gap-2">
-              <span className="font-display text-4xl font-medium text-ink">{why.widget.metric}</span>
-              <span className="pb-1 text-sm text-muted">{why.widget.caption}</span>
-            </div>
-            <div className="mt-4 flex h-14 items-end gap-1.5" aria-hidden="true">
-              {bars.map((h, i) => (
-                <span
-                  key={i}
-                  className="flex-1 rounded-t bg-gold"
-                  style={{ height: `${h}%`, opacity: 0.45 + i * 0.09 }}
-                />
-              ))}
-            </div>
-            <p className="mt-2 text-xs text-muted">{why.widget.barLabel}</p>
-          </div>
+        {/* Image */}
+        <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+          <Image
+            src="/images/why.jpg"
+            alt="Treinadora a acompanhar de perto o treino de uma aluna no estúdio"
+            fill
+            sizes="(max-width: 1024px) 100vw, 45vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+          <p className="chip absolute bottom-6 left-6 right-6 !text-cream">
+            Turmas reduzidas, atenção individual em cada treino
+          </p>
         </div>
       </div>
     </section>

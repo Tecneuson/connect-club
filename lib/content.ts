@@ -141,12 +141,6 @@ export const why = {
       text: "Turmas reduzidas e um ambiente onde cada pessoa é acompanhada. Aqui não és mais um número.",
     },
   ],
-  widget: {
-    title: "Acompanhamento próximo",
-    metric: "1:1",
-    caption: "atenção real em cada treino",
-    barLabel: "Evolução dos alunos",
-  },
 };
 
 export const plans = [
