@@ -1,7 +1,7 @@
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { Logo } from "@/components/brand";
 import { ButtonLink } from "@/components/ui/button";
-import { brand, nav, bookingHref } from "@/lib/content";
+import { brand, nav, signupHref } from "@/lib/content";
 
 export function SiteFooter() {
   return (
@@ -12,11 +12,11 @@ export function SiteFooter() {
             <Logo tone="dark" />
             <p className="mt-5 font-display text-lg text-gold-300">{brand.slogan}</p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-cream/65">
-              Estúdio de treino personalizado no Porto. Personal training, hybrid, aulas de grupo,
-              nutrição e massagem, com acompanhamento próximo do primeiro dia à tua melhor versão.
+              No Porto, no Edifício do Fluvial. Personal training, hybrid, aulas de grupo, nutrição e
+              massagem, sempre com um treinador ao teu lado.
             </p>
-            <ButtonLink href={bookingHref} variant="gold" size="sm" className="mt-6">
-              Marcar avaliação gratuita
+            <ButtonLink href={signupHref} variant="gold" size="sm" className="mt-6">
+              Começa a treinar agora
             </ButtonLink>
           </div>
 
@@ -73,7 +73,7 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-cream/12 pt-6 text-xs text-cream/50 sm:flex-row">
           <p>© {new Date().getFullYear()} Connect Club · Porto. Todos os direitos reservados.</p>
-          <p>Feito com dedicação pela Thuart</p>
+          <p>Site por Thuart</p>
         </div>
       </div>
     </footer>

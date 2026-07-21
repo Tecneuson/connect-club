@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import { faq, bookingHref } from "@/lib/content";
+import { faq, brand, signupHref } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 
 export function Faq() {
@@ -16,11 +16,11 @@ export function Faq() {
           <h2 className="mt-4 text-[clamp(2rem,4.2vw,2.9rem)]">{faq.title}</h2>
           <p className="mt-4 max-w-sm text-muted">{faq.ctaText}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href={bookingHref} variant="dark">
-              Marcar avaliação gratuita
+            <ButtonLink href={signupHref} variant="dark">
+              Começa a treinar agora
             </ButtonLink>
-            <ButtonLink href="#planos" variant="ghost">
-              Ver planos
+            <ButtonLink href={`mailto:${brand.email}`} variant="ghost">
+              Fala connosco
             </ButtonLink>
           </div>
         </div>

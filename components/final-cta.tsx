@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { finalCta, bookingHref } from "@/lib/content";
+import { finalCta, brand, signupHref } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 
 export function FinalCta() {
@@ -23,12 +23,12 @@ export function FinalCta() {
             <p className="mx-auto mt-5 max-w-xl text-cream/75">{finalCta.subtitle}</p>
 
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <ButtonLink href={bookingHref} variant="gold">
-                Marcar avaliação gratuita
+              <ButtonLink href={signupHref} variant="gold">
+                Começa a treinar agora
                 <ArrowRight className="h-4 w-4" />
               </ButtonLink>
-              <ButtonLink href="#planos" variant="onimage">
-                Ver planos e preços
+              <ButtonLink href={`mailto:${brand.email}`} variant="onimage">
+                Tenho uma dúvida
               </ButtonLink>
             </div>
           </div>

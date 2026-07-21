@@ -9,11 +9,11 @@ export function Pricing() {
         <div className="mx-auto max-w-2xl text-center">
           <span className="eyebrow justify-center">Planos</span>
           <h2 className="mt-4 text-[clamp(2rem,4.2vw,2.9rem)]">
-            Escolhe o ritmo. O acompanhamento está sempre incluído.
+            Escolhe o teu ritmo e garante o teu lugar.
           </h2>
           <p className="mt-4 text-muted">
-            Sem taxa de inscrição e sem fidelização. Cancela quando quiseres. Inscrição 100% online e
-            segura.
+            Sem taxa de inscrição e sem fidelização. As turmas são reduzidas, por isso as vagas
+            também. Inscreve-te online em poucos minutos.
           </p>
         </div>
 

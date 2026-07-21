@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Dumbbell, Zap, Users, Apple, Flower2, ArrowRight, type LucideIcon } from "lucide-react";
-import { pilares, bookingHref } from "@/lib/content";
+import { pilares, signupHref } from "@/lib/content";
 
 const icons: Record<string, LucideIcon> = {
   dumbbell: Dumbbell,
@@ -58,8 +58,8 @@ export function Intro() {
               {pilares.highlight.value}
             </span>
             <p className="max-w-md text-lg text-cream/80">{pilares.highlight.label}</p>
-            <Link href={bookingHref} className="btn btn-gold self-start">
-              Marcar avaliação gratuita
+            <Link href={signupHref} className="btn btn-gold self-start">
+              Garante o teu lugar
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
