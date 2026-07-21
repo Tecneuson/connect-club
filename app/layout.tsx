@@ -20,7 +20,7 @@ const siteUrl = "https://connectclub.pt";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Connect Club — Estúdio de treino personalizado no Porto",
+    default: "Connect Club · Estúdio de treino personalizado no Porto",
     template: "%s · Connect Club",
   },
   description:
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "Connect Club",
   ],
   openGraph: {
-    title: "Connect Club — Estúdio de treino personalizado no Porto",
+    title: "Connect Club · Estúdio de treino personalizado no Porto",
     description:
       "5 pilares, 1 propósito: personal training, hybrid, aulas de grupo, nutrição e massagem. Acompanhamento próximo e avaliação física gratuita.",
     url: siteUrl,

@@ -13,7 +13,7 @@ export function SiteFooter() {
             <p className="mt-5 font-display text-lg text-gold-300">{brand.slogan}</p>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-cream/65">
               Estúdio de treino personalizado no Porto. Personal training, hybrid, aulas de grupo,
-              nutrição e massagem — com acompanhamento próximo do primeiro dia à tua melhor versão.
+              nutrição e massagem, com acompanhamento próximo do primeiro dia à tua melhor versão.
             </p>
             <ButtonLink href={bookingHref} variant="gold" size="sm" className="mt-6">
               Marcar avaliação gratuita

@@ -17,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { plano } = await params;
   const plan = plans.find((p) => p.slug === plano);
-  return { title: plan ? `Inscrição — ${plan.name}` : "Inscrição" };
+  return { title: plan ? `Inscrição · ${plan.name}` : "Inscrição" };
 }
 
 export default async function Inscricao({

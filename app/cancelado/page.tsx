@@ -11,7 +11,7 @@ export default function Cancelado() {
       <Logo className="mb-12" />
       <h1 className="max-w-lg text-[clamp(1.8rem,5vw,2.6rem)]">A tua inscrição não foi concluída.</h1>
       <p className="mt-4 max-w-md text-muted">
-        Tudo bem — não foi cobrado nada. Quando quiseres continuar, é só voltar e escolher o teu
+        Tudo bem, não foi cobrado nada. Quando quiseres continuar, é só voltar e escolher o teu
         plano. Se tiveres qualquer dúvida, estamos aqui para ajudar.
       </p>
       <div className="mt-9 flex flex-col gap-3 sm:flex-row">

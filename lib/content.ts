@@ -13,15 +13,15 @@ export const brand = {
   phoneDisplay: "+351 220 000 000",
   phone: "+351220000000",
   hours: [
-    { day: "Segunda a sexta", time: "06h30 – 21h00" },
-    { day: "Sábado", time: "08h00 – 14h00" },
-    { day: "Domingo", time: "09h00 – 13h00" },
+    { day: "Segunda a sexta", time: "06h30 às 21h00" },
+    { day: "Sábado", time: "08h00 às 14h00" },
+    { day: "Domingo", time: "09h00 às 13h00" },
   ],
 };
 
 /** mailto pré-preenchido para marcar a avaliação física gratuita */
 export const bookingHref = `mailto:${brand.email}?subject=${encodeURIComponent(
-  "Avaliação física gratuita — Connect Club",
+  "Avaliação física gratuita no Connect Club",
 )}&body=${encodeURIComponent(
   "Olá! Gostava de marcar a minha avaliação física gratuita.\n\nNome:\nContacto:\nMelhor horário:",
 )}`;
@@ -38,7 +38,7 @@ export const hero = {
   eyebrow: "Estúdio de treino personalizado · Porto",
   title: ["O teu treino,", "guiado por quem percebe."],
   subtitle:
-    "No Connect Club tens um plano feito à tua medida e um personal a acompanhar-te de perto — com a liberdade de treinares também por tua conta. Personal training, hybrid, aulas de grupo, nutrição e massagem, num só estúdio.",
+    "No Connect Club tens um plano feito à tua medida e um personal a acompanhar-te de perto, com a liberdade de treinares também por tua conta. Personal training, hybrid, aulas de grupo, nutrição e massagem, num só estúdio.",
   stats: [
     { value: "5", label: "pilares num só estúdio" },
     { value: "2x", label: "treinos autónomos por semana" },
@@ -50,7 +50,7 @@ export const pilares = {
   eyebrow: "5 pilares, 1 propósito",
   title: "Uma abordagem completa, num só estúdio.",
   subtitle:
-    "Não é só treino. É saúde, performance e bem-estar tratados em conjunto — com acompanhamento próximo e uma comunidade que te puxa para a frente.",
+    "Não é só treino. É saúde, performance e bem-estar tratados em conjunto, com acompanhamento próximo e uma comunidade que te puxa para a frente.",
   items: [
     {
       icon: "dumbbell",
@@ -81,7 +81,7 @@ export const pilares = {
   highlight: {
     value: "2x / semana",
     label:
-      "de treino autónomo incluído — treina no teu tempo, sempre com o plano do teu personal.",
+      "de treino autónomo incluído. Treina no teu tempo, sempre com o plano do teu personal.",
   },
 };
 
@@ -122,7 +122,7 @@ export const why = {
   eyebrow: "Porque funciona",
   title: "Resultados que ficam, ao teu ritmo.",
   subtitle:
-    "Acompanhamento próximo, plano personalizado e a autonomia certa. É isto que faz a diferença — sobretudo se já tiveste experiências que não correram bem.",
+    "Acompanhamento próximo, plano personalizado e a autonomia certa. É isto que faz a diferença, sobretudo se já tiveste experiências que não correram bem.",
   items: [
     {
       title: "Acompanhamento altamente individualizado",
@@ -134,7 +134,7 @@ export const why = {
     },
     {
       title: "Saúde, performance e longevidade",
-      text: "Do emagrecimento à reabilitação, o foco é sentires-te melhor e viveres com mais qualidade — hoje e daqui a 20 anos.",
+      text: "Do emagrecimento à reabilitação, o foco é sentires-te melhor e viveres com mais qualidade, hoje e daqui a 20 anos.",
     },
     {
       title: "Uma comunidade forte e próxima",
@@ -211,7 +211,7 @@ export const plansNote =
 export const testimonials = [
   {
     quote:
-      "Já tinha desistido de ginásios antes — nunca me sentia acompanhada. Aqui é hora marcada, atenção total e um plano à minha medida. Aos 56, sinto-me melhor do que aos 40.",
+      "Já tinha desistido de ginásios antes. Nunca me sentia acompanhada. Aqui é hora marcada, atenção total e um plano à minha medida. Aos 56, sinto-me melhor do que aos 40.",
     name: "Fernanda Costa",
     role: "Aluna há 7 meses",
     image: "/images/t2.jpg",
@@ -244,7 +244,7 @@ export const faq = {
     },
     {
       q: "Posso treinar sozinho?",
-      a: "Podes — e faz parte do método. Além das sessões com o teu personal, tens 2 treinos autónomos por semana, sempre a seguir o plano definido para ti. Mais consistência e mais autonomia.",
+      a: "Podes, e faz parte do método. Além das sessões com o teu personal, tens 2 treinos autónomos por semana, sempre a seguir o plano definido para ti. Mais consistência e mais autonomia.",
     },
     {
       q: "Que serviços estão incluídos?",
@@ -252,15 +252,15 @@ export const faq = {
     },
     {
       q: "Como começo?",
-      a: "Marca a tua avaliação física gratuita. Fazemos bioimpedância e mobilidade, conversamos sobre os teus objetivos e mostramos-te o estúdio — tudo sem compromisso.",
+      a: "Marca a tua avaliação física gratuita. Fazemos bioimpedância e mobilidade, conversamos sobre os teus objetivos e mostramos-te o estúdio, tudo sem compromisso.",
     },
     {
       q: "Há fidelização ou taxa de inscrição?",
-      a: "Não. Sem taxa de inscrição e sem fidelização — cancela quando quiseres. Ainda temos descontos de família (10%) e Member Get Member (15%).",
+      a: "Não. Sem taxa de inscrição e sem fidelização. Cancela quando quiseres. Ainda temos descontos de família (10%) e Member Get Member (15%).",
     },
     {
       q: "Onde ficam e a que horas?",
-      a: "Estamos no Edifício do Fluvial, Rua do Aleixo da Mota, no Porto. Horário: segunda a sexta 06h30–21h00, sábado 08h00–14h00 e domingo 09h00–13h00.",
+      a: "Estamos no Edifício do Fluvial, Rua do Aleixo da Mota, no Porto. Horário: segunda a sexta das 06h30 às 21h00, sábado das 08h00 às 14h00 e domingo das 09h00 às 13h00.",
     },
   ],
 };

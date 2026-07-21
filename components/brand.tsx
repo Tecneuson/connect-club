@@ -29,7 +29,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label="Connect Club — página inicial"
+      aria-label="Connect Club, página inicial"
       className={`group inline-flex items-center gap-3 ${className}`}
     >
       <Emblem className="h-9 w-auto text-gold transition-transform duration-500 group-hover:-rotate-6" />
