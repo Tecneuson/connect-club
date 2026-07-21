@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Connect Club — design tokens
+   Palette extracted from the brand logo:
+   #191919 (ink) · #cdb18a (gold) · #fff4eb (cream)
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #191919;
+  --color-ink-800: #232321;
+  --color-ink-700: #2e2d2a;
+  --color-cream: #fff4eb;
+  --color-sand: #fbf6ef; /* warm off-white — page base */
+  --color-sand-100: #f4ece1;
+  --color-gold: #cdb18a;
+  --color-gold-300: #ddc7a8;
+  --color-gold-600: #b8996b; /* deep gold — legible on light */
+  --color-muted: #6a655e;
+
+  --font-display: var(--font-display), "Space Grotesk", sans-serif;
+  --font-sans: var(--font-sans), "Inter", system-ui, sans-serif;
+
+  --radius-pill: 9999px;
+
+  --shadow-soft: 0 18px 40px -20px rgba(25, 25, 25, 0.28);
+  --shadow-card: 0 2px 4px rgba(25, 25, 25, 0.04), 0 24px 48px -28px rgba(25, 25, 25, 0.22);
+}
+
+/* ---------- base ---------- */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  border-color: color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  background: var(--color-sand);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+/* ---------- reusable pieces ---------- */
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1220px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .section {
+    padding-block: clamp(72px, 11vw, 128px);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-gold-600);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: var(--color-gold);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-gold) 28%, transparent);
+  }
+  .eyebrow--ondark { color: var(--color-gold-300); }
+
+  /* buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 26px;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.35s var(--ease-out), background-color 0.25s, color 0.25s, box-shadow 0.25s, border-color 0.25s;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+    box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--color-gold) 80%, black);
+  }
+  .btn-gold:hover { background: var(--color-gold-300); }
+
+  .btn-dark {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .btn-dark:hover { background: var(--color-ink-700); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  }
+  .btn-ghost:hover { background: var(--color-ink); color: var(--color-cream); border-color: var(--color-ink); }
+
+  .btn-onimage {
+    background: color-mix(in srgb, var(--color-cream) 14%, transparent);
+    color: var(--color-cream);
+    border-color: color-mix(in srgb, var(--color-cream) 34%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .btn-onimage:hover { background: color-mix(in srgb, var(--color-cream) 22%, transparent); }
+
+  .btn-sm { padding: 11px 18px; font-size: 14px; }
+  .btn-block { width: 100%; }
+
+  /* circular icon button (carousel/testimonial arrows) */
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 9999px;
+    background: var(--color-gold);
+    color: var(--color-ink);
+    transition: transform 0.35s var(--ease-out), background-color 0.25s, opacity 0.2s;
+  }
+  .icon-btn:hover { background: var(--color-gold-300); transform: scale(1.06); }
+  .icon-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px 8px 12px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--color-cream) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-cream) 26%, transparent);
+    color: var(--color-cream);
+    backdrop-filter: blur(6px);
+  }
+
+  .icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--color-gold) 22%, transparent);
+    color: var(--color-gold-600);
+    flex: none;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+    border-radius: 22px;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* hide scrollbar for carousels */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ---------- entrance animation ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  animation: rise 0.9s var(--ease-out) both;
+}
