@@ -1,15 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Dumbbell, Zap, Users, Apple, Flower2, ArrowRight, type LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { pilares, signupHref } from "@/lib/content";
-
-const icons: Record<string, LucideIcon> = {
-  dumbbell: Dumbbell,
-  hybrid: Zap,
-  group: Users,
-  nutrition: Apple,
-  massage: Flower2,
-};
+import { PillarCard } from "@/components/pillar-card";
 
 export function Intro() {
   return (
@@ -25,20 +18,11 @@ export function Intro() {
           </p>
         </div>
 
-        {/* 5 pilares */}
+        {/* 5 pilares lado a lado: imagem, vídeo no hover, clique leva aos planos */}
         <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {pilares.items.map((item) => {
-            const Icon = icons[item.icon] ?? Dumbbell;
-            return (
-              <div key={item.title} className="card flex flex-col p-6">
-                <span className="icon-badge">
-                  <Icon className="h-5 w-5" strokeWidth={1.8} />
-                </span>
-                <h3 className="mt-5 text-lg">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
-              </div>
-            );
-          })}
+          {pilares.items.map((item) => (
+            <PillarCard key={item.title} item={item} />
+          ))}
         </div>
 
         {/* Diferenciador: treino autónomo */}

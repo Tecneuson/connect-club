@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, CalendarCheck } from "lucide-react";
 import { Logo } from "@/components/brand";
-import { plans } from "@/lib/content";
+import { brand, plans } from "@/lib/content";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Inscrição confirmada" };
@@ -22,13 +22,24 @@ export default async function Sucesso({
       </span>
       <h1 className="mt-8 max-w-lg text-[clamp(2rem,5vw,3rem)]">Bem-vindo ao Connect Club!</h1>
       <p className="mt-4 max-w-md text-cream/75">
-        A tua inscrição{planName ? ` no plano ${planName}` : ""} foi confirmada. Vais receber um
-        email com os próximos passos para marcares a tua primeira sessão.
+        A tua inscrição{planName ? ` no plano ${planName}` : ""} foi confirmada. Falta só um passo:
+        marca a tua primeira sessão e nós tratamos do resto.
       </p>
-      <Link href="/" className="btn btn-gold mt-9">
-        Voltar ao início
-        <ArrowRight className="h-4 w-4" />
-      </Link>
+      <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+        <a
+          href={`mailto:${brand.email}?subject=${encodeURIComponent(
+            "Marcar a primeira sessão" + (planName ? ` (plano ${planName})` : "")
+          )}`}
+          className="btn btn-gold"
+        >
+          Marcar a primeira sessão
+          <CalendarCheck className="h-4 w-4" />
+        </a>
+        <Link href="/" className="btn btn-onimage">
+          Voltar ao início
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
     </main>
   );
 }

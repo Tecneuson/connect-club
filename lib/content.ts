@@ -9,7 +9,7 @@ export const brand = {
   slogan: "5 pilares, 1 propósito",
   city: "Porto",
   address: "Edifício do Fluvial, Rua do Aleixo da Mota S/N, Porto",
-  email: "geral@connectclub.pt",
+  email: "connectclubhlp@gmail.com",
   phoneDisplay: "+351 220 000 000",
   phone: "+351220000000",
   hours: [
@@ -48,31 +48,50 @@ export const pilares = {
   title: "Cinco pilares, um só estúdio.",
   subtitle:
     "Treino, nutrição e recuperação a trabalhar em conjunto, com uma equipa que sabe o teu nome e puxa por ti.",
+  /**
+   * Cada pilar mostra a imagem e, ao passar o rato, o vídeo (se existir em
+   * /public/videos). Clicar leva à zona do plano correspondente (href).
+   */
   items: [
     {
       icon: "dumbbell",
       title: "Personal Training",
       text: "Sessões individuais com um treinador dedicado ao teu objetivo e ao teu ritmo.",
+      image: "/images/coaching.jpg",
+      video: "/videos/personal-training.mp4",
+      href: "#planos",
     },
     {
       icon: "hybrid",
       title: "Hybrid Training",
       text: "Força e condicionamento na mesma sessão, para um corpo mais completo.",
+      image: "/images/feature-1.jpg",
+      video: "/videos/hybrid-training.mp4",
+      href: "#planos",
     },
     {
       icon: "group",
       title: "Aulas de Grupo",
       text: "Turmas pequenas, boa energia e a mesma atenção ao detalhe.",
+      image: "/images/feature-3.jpg",
+      video: "/videos/aulas-de-grupo.mp4",
+      href: "#planos",
     },
     {
       icon: "nutrition",
       title: "Nutrição",
       text: "Orientação alimentar a puxar na mesma direção do teu treino.",
+      image: "/images/feature-2.jpg",
+      video: "/videos/nutricao.mp4",
+      href: "#planos",
     },
     {
       icon: "massage",
       title: "Massagem",
       text: "Recuperação a sério, para aguentares o ritmo e treinares melhor.",
+      image: "/images/why.jpg",
+      video: "/videos/massagem.mp4",
+      href: "#planos",
     },
   ],
   highlight: {
@@ -83,33 +102,39 @@ export const pilares = {
 };
 
 export const method = {
-  eyebrow: "Como funciona",
-  title: "Começar é mais simples do que parece.",
+  eyebrow: "O método",
+  title: "Um método pensado para ti.",
   subtitle:
-    "Escolhes o plano, marcas a primeira sessão e o resto é connosco. Sem letra pequena.",
+    "Mais do que treino: um serviço completo de saúde e bem-estar, montado à tua medida.",
   steps: [
     {
       n: "01",
-      title: "Avaliação inicial",
-      text: "Medimos o teu ponto de partida: composição corporal, mobilidade e uma boa conversa sobre onde queres chegar.",
-      image: "/images/coaching.jpg",
+      title: "Serviço 360º",
+      text: "Integras na tua rotina diferentes componentes de saúde e bem-estar, tudo no mesmo sítio.",
+      image: "/images/hero.jpg",
     },
     {
       n: "02",
       title: "Plano à tua medida",
-      text: "Montamos o teu programa a pensar na tua idade, na rotina e no teu histórico.",
+      text: "Treino personalizado para os teus objetivos e para aquilo que te diverte.",
       image: "/images/feature-1.jpg",
     },
     {
       n: "03",
-      title: "Treino acompanhado e autónomo",
-      text: "Sessões com o teu personal e treinos por tua conta durante a semana, sempre com o mesmo plano.",
+      title: "Treino autónomo",
+      text: "Treinar mais vezes traz melhores resultados. Aqui não dependes do PT nem precisas de outro ginásio para os treinos extra.",
       image: "/images/feature-3.jpg",
     },
     {
       n: "04",
-      title: "Reavaliação",
-      text: "De tempos a tempos voltamos a medir e ajustamos a rota, para não estagnares.",
+      title: "Bem-estar",
+      text: "Um espaço feito para a melhoria contínua do bem-estar de quem treina connosco.",
+      image: "/images/why.jpg",
+    },
+    {
+      n: "05",
+      title: "Dinâmico",
+      text: "Cria a tua própria aula de grupo, com a modalidade e o horário à tua medida.",
       image: "/images/feature-2.jpg",
     },
   ],
@@ -195,6 +220,13 @@ export const plans = [
 ];
 
 export type Plan = (typeof plans)[number];
+
+/** Passos do fluxo de inscrição, mostrados na secção de planos */
+export const signupSteps = [
+  { n: "1", title: "Escolhe o plano", text: "O ritmo que encaixa na tua semana." },
+  { n: "2", title: "Paga online", text: "Pagamento seguro em menos de um minuto." },
+  { n: "3", title: "Marca a tua sessão", text: "Agendamos contigo a primeira avaliação." },
+];
 
 export const plansNote =
   "Também tens aulas de grupo a partir de 27,20 €/mês. Descontos de família (10%) e Member Get Member (15%). Sem taxa de inscrição e sem fidelização.";

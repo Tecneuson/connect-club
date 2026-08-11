@@ -1,5 +1,5 @@
 import { Check, ShieldCheck, Sparkles } from "lucide-react";
-import { plans, plansNote } from "@/lib/content";
+import { plans, plansNote, signupSteps } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
 
 export function Pricing() {
@@ -15,6 +15,21 @@ export function Pricing() {
             Sem taxa de inscrição e sem fidelização. As turmas são reduzidas, por isso as vagas
             também. Inscreve-te online em poucos minutos.
           </p>
+        </div>
+
+        {/* Inscrever, pagar e agendar em 3 passos */}
+        <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
+          {signupSteps.map((step) => (
+            <div key={step.n} className="flex items-start gap-3 sm:flex-col sm:items-center sm:text-center">
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gold font-display text-sm font-semibold text-ink">
+                {step.n}
+              </span>
+              <div>
+                <p className="font-display text-[15px] font-medium">{step.title}</p>
+                <p className="mt-0.5 text-sm text-muted">{step.text}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="mt-14 grid items-start gap-6 lg:grid-cols-3">
