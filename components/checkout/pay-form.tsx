@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Loader2, Lock, ArrowRight } from "lucide-react";
 import { checkout } from "@/lib/content";
 
-export function PayForm({ plan }: { plan: string }) {
+export function PayForm({ plan, providerName }: { plan: string; providerName: string }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -71,7 +71,7 @@ export function PayForm({ plan }: { plan: string }) {
 
       <p className="mt-5 flex items-center justify-center gap-2 text-xs text-muted">
         <Lock className="h-3.5 w-3.5 text-gold-600" />
-        {checkout.secure}
+        {checkout.secure.replace("{provider}", providerName)}
       </p>
     </form>
   );

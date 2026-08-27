@@ -1,5 +1,6 @@
 import { Check, ShieldCheck, Sparkles } from "lucide-react";
 import { plans, plansNote, signupSteps } from "@/lib/content";
+import { paymentProviderName } from "@/lib/payments/display";
 import { ButtonLink } from "@/components/ui/button";
 
 export function Pricing() {
@@ -98,7 +99,7 @@ export function Pricing() {
 
         <p className="mt-4 flex items-center justify-center gap-2 text-sm text-muted">
           <ShieldCheck className="h-4 w-4 text-gold-600" />
-          Pagamento seguro processado pela Stripe · cancela quando quiseres
+          Pagamento seguro processado pela {paymentProviderName()} · cancela quando quiseres
         </p>
       </div>
     </section>

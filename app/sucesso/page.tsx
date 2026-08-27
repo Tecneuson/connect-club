@@ -9,9 +9,9 @@ export const metadata: Metadata = { title: "Inscrição confirmada" };
 export default async function Sucesso({
   searchParams,
 }: {
-  searchParams: Promise<{ plano?: string }>;
+  searchParams: Promise<{ plano?: string; ref?: string }>;
 }) {
-  const { plano } = await searchParams;
+  const { plano, ref } = await searchParams;
   const planName = plans.find((p) => p.slug === plano)?.name;
 
   return (
@@ -25,6 +25,11 @@ export default async function Sucesso({
         A tua inscrição{planName ? ` no plano ${planName}` : ""} foi confirmada. Falta só um passo:
         marca a tua primeira sessão e nós tratamos do resto.
       </p>
+      {ref && (
+        <p className="mt-3 text-xs text-cream/45">
+          Referência da inscrição: <span className="font-mono">{ref}</span>
+        </p>
+      )}
       <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
         <a
           href={`mailto:${brand.email}?subject=${encodeURIComponent(

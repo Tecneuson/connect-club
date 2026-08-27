@@ -179,7 +179,9 @@ export const why = {
 export const plans = [
   {
     slug: "pt-1x",
-    envKey: "STRIPE_PRICE_PT_1X",
+    stripePriceEnv: "STRIPE_PRICE_PT_1X",
+    /** Valor mensal em euros, usado pela EuPago (a Stripe usa o Price ID). */
+    amountEur: 142.8,
     name: "1x / semana",
     price: "142,80 €",
     period: "/mês",
@@ -196,7 +198,9 @@ export const plans = [
   },
   {
     slug: "pt-2x",
-    envKey: "STRIPE_PRICE_PT_2X",
+    stripePriceEnv: "STRIPE_PRICE_PT_2X",
+    /** Valor mensal em euros, usado pela EuPago (a Stripe usa o Price ID). */
+    amountEur: 268.8,
     name: "2x / semana",
     price: "268,80 €",
     period: "/mês",
@@ -213,7 +217,9 @@ export const plans = [
   },
   {
     slug: "pt-3x",
-    envKey: "STRIPE_PRICE_PT_3X",
+    stripePriceEnv: "STRIPE_PRICE_PT_3X",
+    /** Valor mensal em euros, usado pela EuPago (a Stripe usa o Price ID). */
+    amountEur: 378,
     name: "3x / semana",
     price: "378 €",
     period: "/mês",
@@ -350,9 +356,10 @@ export const checkout = {
   emailPlaceholder: "nome@email.com",
   cta: "Ir para pagamento seguro",
   totalLabel: "Total hoje",
-  secure: "Pagamento seguro processado pela Stripe",
+  /** `{provider}` é substituído pelo gateway ativo (EuPago ou Stripe). */
+  secure: "Pagamento seguro processado pela {provider}",
   terms: "Sem fidelização · cancelas quando quiseres · cobrança mensal",
   notConfigured:
-    "Versão de demonstração: o pagamento com cartão fica ativo assim que a conta Stripe do Connect Club for ligada.",
+    "Versão de demonstração: o pagamento com cartão fica ativo assim que a conta do Connect Club no gateway for ligada.",
   error: "Não foi possível iniciar o pagamento. Tenta novamente daqui a instantes.",
 };
