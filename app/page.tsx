@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { Intro } from "@/components/intro";
 import { MethodCarousel } from "@/components/method-carousel";
 import { WhyItWorks } from "@/components/why-it-works";
+import { Espaco } from "@/components/espaco";
 import { Testimonials } from "@/components/testimonials";
 import { Pricing } from "@/components/pricing";
 import { Faq } from "@/components/faq";
@@ -19,6 +20,7 @@ export default function Home() {
         <Intro />
         <MethodCarousel />
         <WhyItWorks />
+        <Espaco />
         <Testimonials />
         <Pricing />
         <Faq />

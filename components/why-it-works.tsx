@@ -54,8 +54,8 @@ export function WhyItWorks() {
         {/* Image */}
         <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
           <Image
-            src="/images/why.jpg"
-            alt="Treinadora a acompanhar de perto o treino de uma aluna no estúdio"
+            src={why.image}
+            alt="Treinador do Connect Club a corrigir a execução de um aluno durante o treino"
             fill
             sizes="(max-width: 1024px) 100vw, 45vw"
             className="object-cover"

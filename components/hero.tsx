@@ -6,14 +6,28 @@ import { ButtonLink } from "@/components/ui/button";
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-ink text-cream">
-      {/* Background image */}
+      {/*
+        Fundo: a fotografia entra primeiro (serve de poster e garante o LCP) e o
+        vídeo do estúdio corre por cima. Se o vídeo não carregar, ou se o
+        visitante pedir menos movimento, fica a fotografia.
+      */}
       <Image
-        src="/images/hero.jpg"
-        alt="Personal trainer conduzindo o treino de um aluno em um estúdio premium com equipamentos pretos e detalhes dourados"
+        src="/images/hero-poster.jpg"
+        alt="Sala de musculação do Connect Club, com racks, discos e passadeiras"
         fill
         priority
         sizes="100vw"
         className="object-cover object-center"
+      />
+      <video
+        src="/videos/hero.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center motion-reduce:hidden"
       />
       {/* Overlays for legibility */}
       <div className="absolute inset-0 bg-gradient-to-r from-ink/92 via-ink/70 to-ink/30" />

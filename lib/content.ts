@@ -25,6 +25,7 @@ export const signupHref = "#planos";
 export const nav = [
   { label: "Pilares", href: "#pilares" },
   { label: "Método", href: "#metodo" },
+  { label: "Espaço", href: "#espaco" },
   { label: "Planos", href: "#planos" },
   { label: "Depoimentos", href: "#depoimentos" },
   { label: "Dúvidas", href: "#duvidas" },
@@ -43,57 +44,66 @@ export const hero = {
   ],
 };
 
+/** Um pilar do clube. `video` só existe nos pilares que já foram filmados. */
+export type Pillar = {
+  icon: string;
+  title: string;
+  text: string;
+  image: string;
+  video?: string;
+  href: string;
+};
+
+/**
+ * Cada pilar mostra a fotografia e, se houver vídeo, corre-o ao passar o rato.
+ * Clicar leva à zona do plano correspondente (href).
+ */
+const pillarItems: Pillar[] = [
+  {
+    icon: "dumbbell",
+    title: "Personal Training",
+    text: "Sessões individuais com um treinador dedicado ao teu objetivo e ao teu ritmo.",
+    image: "/images/treino-halteres.jpg",
+    video: "/videos/personal-training.mp4",
+    href: "#planos",
+  },
+  {
+    icon: "hybrid",
+    title: "Hybrid Training",
+    text: "Força e condicionamento na mesma sessão, para um corpo mais completo.",
+    image: "/images/treino-boxx.jpg",
+    href: "#planos",
+  },
+  {
+    icon: "group",
+    title: "Aulas de Grupo",
+    text: "Turmas pequenas, boa energia e a mesma atenção ao detalhe.",
+    image: "/images/sala-aulas.jpg",
+    href: "#planos",
+  },
+  {
+    icon: "nutrition",
+    title: "Nutrição",
+    text: "Orientação alimentar a puxar na mesma direção do teu treino.",
+    image: "/images/equipa-1.jpg",
+    href: "#planos",
+  },
+  {
+    icon: "massage",
+    title: "Massagem",
+    text: "Recuperação a sério, para aguentares o ritmo e treinares melhor.",
+    image: "/images/equipa-2.jpg",
+    href: "#planos",
+  },
+];
+
 export const pilares = {
   eyebrow: "5 pilares, 1 propósito",
   title: "Cinco pilares, um só estúdio.",
   subtitle:
     "Treino, nutrição e recuperação a trabalhar em conjunto, com uma equipa que sabe o teu nome e puxa por ti.",
-  /**
-   * Cada pilar mostra a imagem e, ao passar o rato, o vídeo (se existir em
-   * /public/videos). Clicar leva à zona do plano correspondente (href).
-   */
-  items: [
-    {
-      icon: "dumbbell",
-      title: "Personal Training",
-      text: "Sessões individuais com um treinador dedicado ao teu objetivo e ao teu ritmo.",
-      image: "/images/coaching.jpg",
-      video: "/videos/personal-training.mp4",
-      href: "#planos",
-    },
-    {
-      icon: "hybrid",
-      title: "Hybrid Training",
-      text: "Força e condicionamento na mesma sessão, para um corpo mais completo.",
-      image: "/images/feature-1.jpg",
-      video: "/videos/hybrid-training.mp4",
-      href: "#planos",
-    },
-    {
-      icon: "group",
-      title: "Aulas de Grupo",
-      text: "Turmas pequenas, boa energia e a mesma atenção ao detalhe.",
-      image: "/images/feature-3.jpg",
-      video: "/videos/aulas-de-grupo.mp4",
-      href: "#planos",
-    },
-    {
-      icon: "nutrition",
-      title: "Nutrição",
-      text: "Orientação alimentar a puxar na mesma direção do teu treino.",
-      image: "/images/feature-2.jpg",
-      video: "/videos/nutricao.mp4",
-      href: "#planos",
-    },
-    {
-      icon: "massage",
-      title: "Massagem",
-      text: "Recuperação a sério, para aguentares o ritmo e treinares melhor.",
-      image: "/images/why.jpg",
-      video: "/videos/massagem.mp4",
-      href: "#planos",
-    },
-  ],
+  items: pillarItems,
+  image: "/images/treino-boxx-wide-bw.jpg",
   highlight: {
     value: "2x / semana",
     label:
@@ -111,31 +121,31 @@ export const method = {
       n: "01",
       title: "Serviço 360º",
       text: "Integras na tua rotina diferentes componentes de saúde e bem-estar, tudo no mesmo sítio.",
-      image: "/images/hero.jpg",
+      image: "/images/treino-pernas.jpg",
     },
     {
       n: "02",
       title: "Plano à tua medida",
       text: "Treino personalizado para os teus objetivos e para aquilo que te diverte.",
-      image: "/images/feature-1.jpg",
+      image: "/images/treino-boxx-bw.jpg",
     },
     {
       n: "03",
       title: "Treino autónomo",
       text: "Treinar mais vezes traz melhores resultados. Aqui não dependes do PT nem precisas de outro ginásio para os treinos extra.",
-      image: "/images/feature-3.jpg",
+      image: "/images/sala-cardio-34.jpg",
     },
     {
       n: "04",
       title: "Bem-estar",
       text: "Um espaço feito para a melhoria contínua do bem-estar de quem treina connosco.",
-      image: "/images/why.jpg",
+      image: "/images/equipa-1-alt.jpg",
     },
     {
       n: "05",
       title: "Dinâmico",
       text: "Cria a tua própria aula de grupo, com a modalidade e o horário à tua medida.",
-      image: "/images/feature-2.jpg",
+      image: "/images/treino-pernas-bw.jpg",
     },
   ],
 };
@@ -143,6 +153,7 @@ export const method = {
 export const why = {
   eyebrow: "Porque funciona",
   title: "O que faz a diferença aqui.",
+  image: "/images/treino-boxx-wide.jpg",
   subtitle:
     "Se já andaste noutros ginásios e não resultou, provavelmente o problema não eras tu. Era faltar alguém a acompanhar-te a sério.",
   items: [
@@ -288,12 +299,46 @@ export const faq = {
   ],
 };
 
+export const espaco = {
+  eyebrow: "O espaço",
+  title: "Vê onde vais treinar.",
+  subtitle:
+    "Estamos no Edifício do Fluvial, no Porto. Sala de musculação, zona de cardio e uma sala reservada só para as aulas de grupo.",
+  /** A ordem importa: a 1.ª foto ocupa duas colunas e a 2.ª tem de ser vertical. */
+  photos: [
+    {
+      src: "/images/sala-aulas-wide.jpg",
+      alt: "Sala de aulas de grupo do Connect Club, com colchões no chão, espelho e luz natural",
+    },
+    {
+      src: "/images/equipa-2-alt.jpg",
+      alt: "Treinador do Connect Club em frente ao logótipo do clube",
+    },
+    {
+      src: "/images/sala-cardio.jpg",
+      alt: "Zona de cardio do Connect Club com bicicletas de ar e ski ergs",
+    },
+    {
+      src: "/images/rack-halteres.jpg",
+      alt: "Rack de halteres da sala de musculação do Connect Club",
+    },
+    {
+      src: "/images/treino-boxx-wide2.jpg",
+      alt: "Treinador do Connect Club a corrigir a postura de um aluno numa máquina de treino funcional",
+    },
+    {
+      src: "/images/equipa-1-wide.jpg",
+      alt: "Treinador do Connect Club em frente ao logótipo do clube",
+    },
+  ],
+};
+
 export const finalCta = {
   eyebrow: "Vamos a isto",
   title: "Começa a treinar já esta semana.",
   subtitle:
     "Escolhe o teu plano, marca a primeira sessão e aparece. As vagas são poucas e as turmas também.",
-  image: "/images/cta.jpg",
+  image: "/images/estudio-geral.jpg",
 };
 
 export const checkout = {

@@ -29,8 +29,8 @@ export function Intro() {
         <div className="mt-6 grid overflow-hidden rounded-3xl bg-ink lg:grid-cols-2">
           <div className="relative min-h-[280px] lg:min-h-full">
             <Image
-              src="/images/coaching.jpg"
-              alt="Treinadora a acompanhar de perto o treino de um aluno no estúdio"
+              src={pilares.image}
+              alt="Treinador do Connect Club a acompanhar de perto o treino de um aluno"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

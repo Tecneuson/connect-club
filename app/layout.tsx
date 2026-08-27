@@ -42,6 +42,14 @@ export const metadata: Metadata = {
     siteName: "Connect Club",
     locale: "pt_PT",
     type: "website",
+    images: [
+      {
+        url: "/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Treinador do Connect Club a acompanhar o treino de um aluno no estúdio, no Porto",
+      },
+    ],
   },
   icons: {
     icon: "/icon.svg",
