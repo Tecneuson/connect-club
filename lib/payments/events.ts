@@ -15,7 +15,6 @@ import type { PaymentEvent } from "./types";
 
 export async function handlePaymentEvent(event: PaymentEvent): Promise<void> {
   console.info("[pagamento]", {
-    provider: event.provider,
     status: event.status,
     plan: event.plan,
     identifier: event.identifier,

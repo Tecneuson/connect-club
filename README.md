@@ -1,6 +1,6 @@
 # Connect Club — Landing Page
 
-Página de alta conversão para o **Connect Club**, estúdio de treino 100% acompanhado por personal, com inscrição e mensalidade recorrente via **EuPago** (ou Stripe).
+Página de alta conversão para o **Connect Club**, estúdio de treino 100% acompanhado por personal, com inscrição e mensalidade recorrente via **EuPago**.
 
 Stack: **Next.js 16 (App Router) · React 19 · Tailwind CSS v4 · TypeScript**.
 
@@ -21,21 +21,8 @@ npm start
 
 ## Pagamentos (inscrição)
 
-O site cobra **mensalidades recorrentes** e suporta dois gateways. A escolha é
-feita por variável de ambiente, sem tocar em código:
-
-```bash
-PAYMENT_PROVIDER=eupago   # predefinido
-PAYMENT_PROVIDER=stripe   # alternativa
-```
-
-Sem chaves configuradas o site arranca em **modo demonstração**: o checkout
-explica que o pagamento ainda não está ativo em vez de rebentar.
-
-### EuPago (predefinido)
-
-A EuPago suporta recorrência nativa. Usamos a **subscrição por cartão de
-crédito**, que é o equivalente ao Checkout da Stripe:
+O site cobra **mensalidades recorrentes** através da **EuPago**, que suporta
+subscrições nativamente. Usamos a subscrição por cartão de crédito:
 
 1. `POST /v1.02/creditcard/subscription` cria a autorização e devolve um
    `redirectUrl`;
@@ -44,7 +31,10 @@ crédito**, que é o equivalente ao Checkout da Stripe:
 4. as mensalidades seguintes são cobradas automaticamente pela EuPago
    (`autoProcess: "1"`, `periodicity: "Mensal"`).
 
-Configuração:
+Sem chaves configuradas o site arranca em **modo demonstração**: o checkout
+explica que o pagamento ainda não está ativo, em vez de rebentar.
+
+### Configuração
 
 1. `cp .env.local.example .env.local`
 2. No backoffice da EuPago, em **Canais → Listagem de canais**, copia a API Key
@@ -61,7 +51,7 @@ Configuração:
    **Sem esta chave as notificações são aceites sem verificação de assinatura** —
    em produção é obrigatória.
 
-Testar:
+### Testar
 
 ```bash
 npm run eupago:smoke          # cria uma subscrição de 1 € no sandbox
@@ -73,15 +63,12 @@ O `eupago:webhook-test` aceita `-- --plain` (JSON sem encriptação) e `-- --v1`
 
 Cartões de teste: <https://eupago.readme.io/reference/test-cards>
 
-**Débito Direto SEPA** fica preparado em `lib/payments/eupago/client.ts`
-(`createDirectDebitAuthorization`). Tem comissão bem mais baixa que o cartão,
-mas exige o IBAN do cliente no checkout, o que costuma baixar a conversão.
+### Débito Direto SEPA
 
-### Stripe (alternativa)
-
-1. Cria 3 produtos **recorrentes (mensais)**, um por plano.
-2. Preenche `STRIPE_SECRET_KEY` e `STRIPE_PRICE_PT_1X` / `_2X` / `_3X`.
-3. Define `PAYMENT_PROVIDER=stripe`.
+Fica preparado em `lib/payments/eupago/client.ts`
+(`createDirectDebitAuthorization`) mas não está ligado ao checkout. Tem comissão
+bem mais baixa que o cartão, mas exige o IBAN do cliente, o que costuma baixar a
+conversão.
 
 ### Para onde vão os pagamentos confirmados
 
@@ -98,19 +85,19 @@ app/
   page.tsx              montagem das seções
   globals.css           tokens de marca (cores/tipografia/botões)
   icon.svg              favicon (emblema)
-  api/checkout/route.ts cria a subscrição no gateway ativo
+  api/checkout/route.ts cria a subscrição na EuPago
   api/webhooks/eupago/  recebe as notificações de pagamento da EuPago
   sucesso/ · cancelado/ páginas de retorno do pagamento
 components/             Header, Hero, Intro, Método, Why, Depoimentos, Planos, FAQ, CTA, Footer
 lib/
   content.ts            TODO o texto e os planos (editar aqui)
   payments/
-    types.ts            contrato comum aos gateways
-    index.ts            resolve o gateway a partir de PAYMENT_PROVIDER
-    display.ts          nome do gateway para a interface
+    types.ts            tipos partilhados (checkout e eventos)
     events.ts           onde aterram os pagamentos confirmados
-    eupago/             cliente REST, provider e webhooks da EuPago
-    stripe/             provider da Stripe
+    eupago/
+      client.ts         cliente REST da EuPago (ApiKey + OAuth)
+      checkout.ts       cria a subscrição mensal
+      webhook.ts        assinatura, desencriptação e normalização
 scripts/                testes de fumo da EuPago
 public/images/          fotos (banco Magnific/Freepik) já otimizadas
 public/logo-*.svg       versões do logo (claro/escuro) + emblema

@@ -5,7 +5,6 @@ import { ArrowLeft, Check, ShieldCheck } from "lucide-react";
 import { Logo } from "@/components/brand";
 import { PayForm } from "@/components/checkout/pay-form";
 import { plans, checkout } from "@/lib/content";
-import { paymentProviderName } from "@/lib/payments/display";
 
 export function generateStaticParams() {
   return plans.map((p) => ({ plano: p.slug }));
@@ -105,7 +104,7 @@ export default async function Inscricao({
                   <span className="text-sm text-muted">{plan.period}</span>
                 </span>
               </div>
-              <PayForm plan={plan.slug} providerName={paymentProviderName()} />
+              <PayForm plan={plan.slug} />
             </div>
           </div>
         </section>

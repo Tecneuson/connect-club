@@ -16,7 +16,7 @@ import "server-only";
 
 import crypto from "node:crypto";
 import type { PaymentEvent, PaymentStatus } from "@/lib/payments/types";
-import { planFromIdentifier } from "./provider";
+import { planFromIdentifier } from "./checkout";
 
 export const SIGNATURE_HEADER = "x-signature";
 export const IV_HEADER = "x-initialization-vector";
@@ -142,7 +142,6 @@ export function normalizeV2(payload: WebhookV2): PaymentEvent {
   const amount = Number(tx.amount?.value);
 
   return {
-    provider: "eupago",
     status: toStatus(tx.status),
     identifier: tx.identifier,
     transactionId: tx.trid === undefined ? undefined : String(tx.trid),
@@ -163,7 +162,6 @@ export function normalizeV1(params: URLSearchParams): PaymentEvent {
   const methodCode = params.get("mp")?.split(":")[0] ?? "";
 
   return {
-    provider: "eupago",
     status: "paid",
     identifier,
     transactionId: params.get("transacao") ?? undefined,

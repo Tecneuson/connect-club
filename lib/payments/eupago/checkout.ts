@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------
-   EuPago como gateway de subscrição do Connect Club.
+   Inscrição no Connect Club — subscrição mensal com cartão, via EuPago.
 
-   Fluxo (equivalente ao Checkout da Stripe):
+   Fluxo:
      1. criamos a autorização de subscrição via API;
      2. a EuPago devolve um `redirectUrl` para um formulário seguro com 3D Secure;
      3. o cliente preenche o cartão lá e volta ao nosso `successUrl`;
@@ -11,7 +11,7 @@
 
 import "server-only";
 
-import type { CheckoutRequest, CheckoutResult, PaymentProvider } from "@/lib/payments/types";
+import type { CheckoutRequest, CheckoutResult } from "@/lib/payments/types";
 import { createCreditCardSubscription, eupagoApiKey, EupagoError } from "./client";
 
 /** Prefixo do `identifier` para reconhecermos as nossas transações no webhook. */
@@ -61,62 +61,62 @@ export function planFromIdentifier(identifier: string | undefined): string | und
   return withoutPrefix.slice(0, lastDash);
 }
 
-export const eupagoProvider: PaymentProvider = {
-  id: "eupago",
-  displayName: "EuPago",
+/** true quando há API Key para cobrar a sério. */
+export function isConfigured(): boolean {
+  return Boolean(eupagoApiKey());
+}
 
-  isConfigured() {
-    return Boolean(eupagoApiKey());
-  },
+/** Cria a subscrição mensal e devolve o URL do formulário seguro da EuPago. */
+export async function createSubscriptionCheckout({
+  plan,
+  email,
+  origin,
+}: CheckoutRequest): Promise<CheckoutResult> {
+  if (!isConfigured()) {
+    return {
+      ok: false,
+      demo: true,
+      reason: "Pagamentos ainda não ativos: falta configurar EUPAGO_API_KEY.",
+    };
+  }
 
-  async createSubscriptionCheckout({ plan, email, origin }: CheckoutRequest): Promise<CheckoutResult> {
-    if (!eupagoApiKey()) {
-      return {
-        ok: false,
-        demo: true,
-        reason: "Pagamentos ainda não ativos: falta configurar EUPAGO_API_KEY.",
-      };
+  const now = new Date();
+  const identifier = buildIdentifier(plan.slug);
+  const query = `plano=${encodeURIComponent(plan.slug)}&ref=${encodeURIComponent(identifier)}`;
+
+  try {
+    const subscription = await createCreditCardSubscription({
+      identifier,
+      amount: plan.amountEur,
+      currency: "EUR",
+      startDate: toApiDate(now),
+      periodicity: "Mensal",
+      collectionDay: collectionDay(now),
+      limitDate: toApiDate(limitDate(now)),
+      autoProcess: "1",
+      customerEmail: email,
+      notifyCustomer: true,
+      successUrl: `${origin}/sucesso?${query}`,
+      failUrl: `${origin}/cancelado?${query}&estado=falha`,
+      backUrl: `${origin}/cancelado?${query}`,
+    });
+
+    if (!subscription?.redirectUrl) {
+      console.error("EuPago: subscrição criada sem redirectUrl", subscription);
+      return { ok: false, demo: false, reason: "A EuPago não devolveu o formulário de pagamento." };
     }
 
-    const now = new Date();
-    const identifier = buildIdentifier(plan.slug);
-    const query = `plano=${encodeURIComponent(plan.slug)}&ref=${encodeURIComponent(identifier)}`;
-
-    try {
-      const subscription = await createCreditCardSubscription({
-        identifier,
-        amount: plan.amountEur,
-        currency: "EUR",
-        startDate: toApiDate(now),
-        periodicity: "Mensal",
-        collectionDay: collectionDay(now),
-        limitDate: toApiDate(limitDate(now)),
-        autoProcess: "1",
-        customerEmail: email,
-        notifyCustomer: true,
-        successUrl: `${origin}/sucesso?${query}`,
-        failUrl: `${origin}/cancelado?${query}&estado=falha`,
-        backUrl: `${origin}/cancelado?${query}`,
-      });
-
-      if (!subscription?.redirectUrl) {
-        console.error("EuPago: subscrição criada sem redirectUrl", subscription);
-        return { ok: false, demo: false, reason: "A EuPago não devolveu o formulário de pagamento." };
-      }
-
-      return {
-        ok: true,
-        url: subscription.redirectUrl,
-        provider: "eupago",
-        reference: subscription.subscriptionID ?? subscription.referenceSubs,
-      };
-    } catch (err) {
-      if (err instanceof EupagoError) {
-        console.error("EuPago checkout error:", err.message, err.body);
-      } else {
-        console.error("EuPago checkout error:", err);
-      }
-      return { ok: false, demo: false, reason: "Não foi possível iniciar o pagamento." };
+    return {
+      ok: true,
+      url: subscription.redirectUrl,
+      reference: subscription.subscriptionID ?? subscription.referenceSubs,
+    };
+  } catch (err) {
+    if (err instanceof EupagoError) {
+      console.error("EuPago checkout error:", err.message, err.body);
+    } else {
+      console.error("EuPago checkout error:", err);
     }
-  },
-};
+    return { ok: false, demo: false, reason: "Não foi possível iniciar o pagamento." };
+  }
+}

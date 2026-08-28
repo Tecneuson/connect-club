@@ -1,14 +1,8 @@
 /* -----------------------------------------------------------------------------
-   Camada de pagamentos — contrato comum aos gateways.
-
-   O site suporta mais do que um gateway de subscrição (EuPago e Stripe). Cada um
-   implementa `PaymentProvider`, e o resto da aplicação só conhece este contrato.
-   Trocar de gateway é mudar a variável de ambiente `PAYMENT_PROVIDER`.
+   Tipos partilhados da camada de pagamentos (EuPago).
 ----------------------------------------------------------------------------- */
 
 import type { Plan } from "@/lib/content";
-
-export type ProviderId = "eupago" | "stripe";
 
 /** Pedido de checkout vindo da página de inscrição. */
 export type CheckoutRequest = {
@@ -25,35 +19,23 @@ export type CheckoutRequest = {
  * primeira situação mostra uma mensagem simpática em vez de um erro.
  */
 export type CheckoutResult =
-  | { ok: true; url: string; provider: ProviderId; reference?: string }
+  | { ok: true; url: string; reference?: string }
   | { ok: false; demo: boolean; reason: string };
 
-export interface PaymentProvider {
-  readonly id: ProviderId;
-  /** Nome apresentado ao cliente ("EuPago", "Stripe"). */
-  readonly displayName: string;
-  /** true quando há credenciais suficientes para cobrar a sério. */
-  isConfigured(): boolean;
-  /** Cria a subscrição mensal e devolve o URL do formulário seguro. */
-  createSubscriptionCheckout(req: CheckoutRequest): Promise<CheckoutResult>;
-}
-
-/** Estado normalizado de um pagamento, comum aos dois gateways. */
+/** Estado normalizado de um pagamento. */
 export type PaymentStatus = "paid" | "pending" | "failed" | "refunded" | "canceled" | "expired";
 
-/** Evento de pagamento já normalizado, seja de webhook EuPago ou Stripe. */
+/** Notificação de pagamento já normalizada, venha ela do webhook 1.0 ou 2.0. */
 export type PaymentEvent = {
-  provider: ProviderId;
   status: PaymentStatus;
   /** Identificador que nós enviámos ao criar a transação (contém o plano). */
   identifier?: string;
-  /** Referência/ID da transação no lado do gateway. */
+  /** ID da transação no lado da EuPago. */
   transactionId?: string;
   reference?: string;
   amount?: number;
   currency?: string;
   method?: string;
-  email?: string;
   /** Slug do plano, extraído do identifier quando possível. */
   plan?: string;
   occurredAt?: string;

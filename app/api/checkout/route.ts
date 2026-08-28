@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { getPaymentProvider } from "@/lib/payments";
+import { createSubscriptionCheckout } from "@/lib/payments/eupago/checkout";
 import { plans } from "@/lib/content";
 
 /**
- * Cria a subscrição mensal no gateway ativo (EuPago ou Stripe) e devolve o URL
- * do formulário seguro para onde o cliente é redirecionado.
+ * Cria a subscrição mensal na EuPago e devolve o URL do formulário seguro para
+ * onde o cliente é redirecionado.
  */
 export async function POST(req: Request) {
   let planSlug = "pt-2x";
@@ -27,14 +27,14 @@ export async function POST(req: Request) {
     req.headers.get("origin") ??
     "http://localhost:3000";
 
-  const result = await getPaymentProvider().createSubscriptionCheckout({
+  const result = await createSubscriptionCheckout({
     plan,
     email,
     origin: origin.replace(/\/$/, ""),
   });
 
   if (result.ok) {
-    return NextResponse.json({ url: result.url, provider: result.provider });
+    return NextResponse.json({ url: result.url });
   }
 
   // Sem chaves configuradas devolvemos 200: não é um erro, é o modo demonstração.
