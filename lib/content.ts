@@ -44,8 +44,19 @@ export const hero = {
   ],
 };
 
+export type PillarSlug =
+  | "personal-training"
+  | "hybrid-training"
+  | "aulas-de-grupo"
+  | "nutricao"
+  | "massagem";
+
+/** Âncora que abre o preçário já no separador de um pilar. */
+export const pricingHref = (slug: PillarSlug) => `#planos-${slug}`;
+
 /** Um pilar do clube. `video` só existe nos pilares que já foram filmados. */
 export type Pillar = {
+  slug: PillarSlug;
   icon: string;
   title: string;
   text: string;
@@ -56,44 +67,50 @@ export type Pillar = {
 
 /**
  * Cada pilar mostra a fotografia e, se houver vídeo, corre-o ao passar o rato.
- * Clicar leva à zona do plano correspondente (href).
+ * Para os outros pilares ganharem o mesmo efeito do PT basta juntar o `video`.
+ * Clicar abre o preçário desse pilar, e só desse.
  */
 const pillarItems: Pillar[] = [
   {
+    slug: "personal-training",
     icon: "dumbbell",
     title: "Personal Training",
-    text: "Sessões individuais com um treinador dedicado ao teu objetivo e ao teu ritmo.",
+    text: "Treino individual ou em grupo, com plano à tua medida e avaliação física inicial.",
     image: "/images/treino-halteres.jpg",
     video: "/videos/personal-training.mp4",
-    href: "#planos",
+    href: pricingHref("personal-training"),
   },
   {
+    slug: "hybrid-training",
     icon: "hybrid",
     title: "Hybrid Training",
-    text: "Força e condicionamento na mesma sessão, para um corpo mais completo.",
+    text: "Força e resistência na mesma sessão, para ganhares performance e superares limites.",
     image: "/images/treino-boxx.jpg",
-    href: "#planos",
+    href: pricingHref("hybrid-training"),
   },
   {
+    slug: "aulas-de-grupo",
     icon: "group",
     title: "Aulas de Grupo",
-    text: "Turmas pequenas, boa energia e a mesma atenção ao detalhe.",
+    text: "Yoga, Pilates, Local, Meditação e Circuito, em turmas até 12 pessoas.",
     image: "/images/sala-aulas.jpg",
-    href: "#planos",
+    href: pricingHref("aulas-de-grupo"),
   },
   {
+    slug: "nutricao",
     icon: "nutrition",
     title: "Nutrição",
-    text: "Orientação alimentar a puxar na mesma direção do teu treino.",
+    text: "Consultas para acertar a alimentação com o treino e ver resultados que ficam.",
     image: "/images/equipa-1.jpg",
-    href: "#planos",
+    href: pricingHref("nutricao"),
   },
   {
+    slug: "massagem",
     icon: "massage",
     title: "Massagem",
-    text: "Recuperação a sério, para aguentares o ritmo e treinares melhor.",
+    text: "Terapêutica, relaxamento, desportiva, drenagem linfática e anti-celulite.",
     image: "/images/equipa-2.jpg",
-    href: "#planos",
+    href: pricingHref("massagem"),
   },
 ];
 
@@ -176,74 +193,266 @@ export const why = {
   ],
 };
 
-export const plans = [
+/* -----------------------------------------------------------------------------
+   Preçário, organizado por pilar (tabela oficial do Connect Club).
+
+   Cada serviço vende-se de duas formas:
+     · mensalidade — débito automático todos os meses, sem fidelização;
+     · pack        — pagamento único de um número fechado de sessões.
+----------------------------------------------------------------------------- */
+
+export type BillingKind = "mensal" | "pack";
+
+type PriceOption = {
+  /**
+   * Junta-se ao slug do serviço para formar o slug da oferta (`pt-one-1x`).
+   * Não mudar depois de publicado: vai dentro do identifier da EuPago.
+   */
+  id: string;
+  name: string;
+  amountEur: number;
+  /** Meses entre cobranças numa mensalidade. 1 por omissão. */
+  everyMonths?: number;
+};
+
+export type Service = {
+  slug: string;
+  name: string;
+  blurb: string;
+  features: string[];
+  monthly: PriceOption[];
+  packs: PriceOption[];
+};
+
+export type PricingPillar = {
+  slug: PillarSlug;
+  title: string;
+  description: string;
+  services: Service[];
+};
+
+export const pricing: PricingPillar[] = [
   {
-    slug: "pt-1x",
-    /** Valor mensal em euros cobrado pela EuPago. */
-    amountEur: 142.8,
-    name: "1x / semana",
-    price: "142,80 €",
-    period: "/mês",
-    blurb: "Para manter a consistência.",
-    highlight: false,
-    features: [
-      "1 sessão de personal training por semana",
-      "+ 2 treinos autónomos por semana",
-      "Avaliação física incluída",
-      "Plano de treino personalizado",
-      "Acompanhamento pela app",
+    slug: "personal-training",
+    title: "Personal Training",
+    description:
+      "Treino guiado do início ao fim: o teu personal monta o plano, corrige cada movimento e ajusta a carga à tua evolução. Sozinho ou em grupo.",
+    services: [
+      {
+        slug: "pt-one",
+        name: "PT Home One",
+        blurb: "Sessões individuais, só tu e o teu treinador.",
+        features: ["2 treinos autónomos por semana", "Avaliação física inicial"],
+        monthly: [
+          { id: "1x", name: "1x / semana", amountEur: 142.8 },
+          { id: "2x", name: "2x / semana", amountEur: 268.8 },
+          { id: "3x", name: "3x / semana", amountEur: 378 },
+        ],
+        packs: [
+          { id: "pack10", name: "Pack 10 sessões", amountEur: 399 },
+          { id: "pack20", name: "Pack 20 sessões", amountEur: 756 },
+          { id: "pack30", name: "Pack 30 sessões", amountEur: 1071 },
+        ],
+      },
+      {
+        slug: "pt-group",
+        name: "PT Home Group",
+        blurb: "Personal training em grupo, com o mesmo acompanhamento.",
+        features: ["Plano de treino personalizado", "10% de desconto nas Aulas de Grupo"],
+        monthly: [
+          { id: "1x", name: "1x / semana", amountEur: 83.3 },
+          { id: "2x", name: "2x / semana", amountEur: 156.8 },
+          { id: "3x", name: "3x / semana", amountEur: 220.5 },
+        ],
+        packs: [
+          { id: "pack10", name: "Pack 10 sessões", amountEur: 232.75 },
+          { id: "pack20", name: "Pack 20 sessões", amountEur: 441 },
+          { id: "pack30", name: "Pack 30 sessões", amountEur: 624.75 },
+        ],
+      },
     ],
-    cta: "Começar com 1x / semana",
   },
   {
-    slug: "pt-2x",
-    /** Valor mensal em euros cobrado pela EuPago. */
-    amountEur: 268.8,
-    name: "2x / semana",
-    price: "268,80 €",
-    period: "/mês",
-    blurb: "O equilíbrio perfeito. O mais escolhido.",
-    highlight: true,
-    features: [
-      "2 sessões de personal training por semana",
-      "+ 2 treinos autónomos por semana",
-      "Avaliação física a cada 8 semanas",
-      "Plano de treino e orientação nutricional",
-      "Prioridade na marcação",
+    slug: "hybrid-training",
+    title: "Hybrid Training",
+    description:
+      "Força e cardio na mesma sessão, em treinos intensos e variados para ganhares resistência, potência e ires mais longe.",
+    services: [
+      {
+        slug: "hybrid",
+        name: "Hybrid Performance",
+        blurb: "Treino de força e condicionamento, lado a lado.",
+        features: ["Força e resistência", "Superação e performance"],
+        monthly: [
+          { id: "1x", name: "1x / semana", amountEur: 51 },
+          { id: "2x", name: "2x / semana", amountEur: 96 },
+          { id: "3x", name: "3x / semana", amountEur: 135 },
+        ],
+        packs: [
+          { id: "pack10", name: "Pack 10 sessões", amountEur: 142.5 },
+          { id: "pack20", name: "Pack 20 sessões", amountEur: 270 },
+          { id: "pack30", name: "Pack 30 sessões", amountEur: 382.5 },
+        ],
+      },
     ],
-    cta: "Começar com 2x / semana",
   },
   {
-    slug: "pt-3x",
-    /** Valor mensal em euros cobrado pela EuPago. */
-    amountEur: 378,
-    name: "3x / semana",
-    price: "378 €",
-    period: "/mês",
-    blurb: "Para quem quer ir com tudo.",
-    highlight: false,
-    features: [
-      "3 sessões de personal training por semana",
-      "Treino autónomo livre",
-      "Reavaliação mensal completa",
-      "Plano de treino, nutrição e recuperação",
-      "Prioridade máxima na agenda",
+    slug: "aulas-de-grupo",
+    title: "Aulas de Grupo",
+    description:
+      "Turmas até 12 pessoas, do yoga e pilates ao circuito. Escolhes o registo do dia: energia e bem-estar, ou movimento e desafio.",
+    services: [
+      {
+        slug: "aulas",
+        name: "Aulas de Grupo",
+        blurb: "Yoga, Local, Meditação, Pilates e Circuito.",
+        features: ["Até 12 pessoas por aula", "Energia e bem-estar", "Movimento e desafio"],
+        monthly: [
+          { id: "1x", name: "1x / semana", amountEur: 27.2 },
+          { id: "2x", name: "2x / semana", amountEur: 51.2 },
+          { id: "3x", name: "3x / semana", amountEur: 72 },
+        ],
+        packs: [
+          { id: "pack10", name: "Pack 10 aulas", amountEur: 76 },
+          { id: "pack20", name: "Pack 20 aulas", amountEur: 144 },
+          { id: "pack30", name: "Pack 30 aulas", amountEur: 204 },
+        ],
+      },
     ],
-    cta: "Começar com 3x / semana",
+  },
+  {
+    slug: "nutricao",
+    title: "Nutrição",
+    description:
+      "Consultas para acertares a alimentação com o teu treino, com um plano realista que cabe no teu dia a dia e resultados que ficam.",
+    services: [
+      {
+        slug: "nutricao",
+        name: "Nutrição",
+        blurb: "Acompanhamento com nutricionista.",
+        features: ["Alimentação", "Equilíbrio", "Resultados"],
+        monthly: [
+          { id: "1m", name: "1 consulta / mês", amountEur: 40 },
+          { id: "2m", name: "1 consulta a cada 2 meses", amountEur: 42.5, everyMonths: 2 },
+        ],
+        packs: [
+          { id: "pack3", name: "Pack 3 consultas", amountEur: 142.5 },
+          { id: "pack6", name: "Pack 6 consultas", amountEur: 270 },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "massagem",
+    title: "Massagem",
+    description:
+      "Massagens para recuperares do treino e cuidares do corpo: terapêuticas, de relaxamento, anti-celulite, drenagem linfática e desportivas.",
+    services: [
+      {
+        slug: "massagem",
+        name: "Massagem",
+        blurb: "Escolhes o tipo de massagem em cada sessão.",
+        features: ["Terapêuticas", "Relaxamento", "Anti-celulite", "Drenagem linfática", "Desportivas"],
+        monthly: [
+          { id: "1x", name: "1x / mês", amountEur: 42.5 },
+          { id: "2x", name: "2x / mês", amountEur: 80 },
+          { id: "4x", name: "4x / mês", amountEur: 150 },
+        ],
+        packs: [
+          { id: "pack5", name: "Pack 5 massagens", amountEur: 237.5 },
+          { id: "pack10", name: "Pack 10 massagens", amountEur: 450 },
+        ],
+      },
+    ],
   },
 ];
 
-export type Plan = (typeof plans)[number];
+/**
+ * "142,80 €". Formatado à mão, e não com Intl, para o servidor e o browser
+ * escreverem exatamente o mesmo texto (senão a hidratação queixa-se).
+ */
+export function formatEur(value: number): string {
+  return `${value.toFixed(2).replace(".", ",")} €`;
+}
+
+/** Uma opção concreta que se pode comprar: é o que chega ao checkout. */
+export type Offer = {
+  slug: string;
+  kind: BillingKind;
+  pillar: PillarSlug;
+  pillarTitle: string;
+  service: string;
+  features: string[];
+  name: string;
+  amountEur: number;
+  price: string;
+  /** "/mês", "/2 meses" ou "" num pack. */
+  period: string;
+  everyMonths: number;
+};
+
+export const offers: Offer[] = pricing.flatMap((pillar) =>
+  pillar.services.flatMap((service) =>
+    (["mensal", "pack"] as const).flatMap((kind) =>
+      (kind === "mensal" ? service.monthly : service.packs).map((option): Offer => {
+        const everyMonths = kind === "mensal" ? option.everyMonths ?? 1 : 0;
+        return {
+          slug: `${service.slug}-${option.id}`,
+          kind,
+          pillar: pillar.slug,
+          pillarTitle: pillar.title,
+          service: service.name,
+          features: service.features,
+          name: option.name,
+          amountEur: option.amountEur,
+          price: formatEur(option.amountEur),
+          period: kind === "pack" ? "" : everyMonths === 1 ? "/mês" : `/${everyMonths} meses`,
+          everyMonths,
+        };
+      }),
+    ),
+  ),
+);
+
+/** Slugs da primeira versão do site, para links antigos continuarem a funcionar. */
+const LEGACY_SLUGS: Record<string, string> = {
+  "pt-1x": "pt-one-1x",
+  "pt-2x": "pt-one-2x",
+  "pt-3x": "pt-one-3x",
+};
+
+export function findOffer(slug: string | undefined): Offer | undefined {
+  if (!slug) return undefined;
+  const wanted = LEGACY_SLUGS[slug] ?? slug;
+  return offers.find((o) => o.slug === wanted);
+}
+
+/** "PT Home One · 1x / semana" */
+export function offerLabel(offer: Offer): string {
+  return offer.service === offer.name ? offer.name : `${offer.service} · ${offer.name}`;
+}
+
+export const pricingSection = {
+  eyebrow: "Preçário",
+  title: "Escolhe o pilar e o teu ritmo.",
+  subtitle:
+    "Em cada serviço decides como pagar: mensalidade com débito automático e sem fidelização, ou um pack de sessões pago de uma só vez.",
+};
+
+export const billing: Record<BillingKind, { title: string; hint: string; cta: string }> = {
+  mensal: { title: "Mensalidade", hint: "Débito direto todos os meses · sem fidelização", cta: "Aderir" },
+  pack: { title: "Packs", hint: "Pagamento único · sem renovação automática", cta: "Comprar" },
+};
 
 /** Passos do fluxo de inscrição, mostrados na secção de planos */
 export const signupSteps = [
-  { n: "1", title: "Escolhe o plano", text: "O ritmo que encaixa na tua semana." },
+  { n: "1", title: "Escolhe o serviço", text: "Mensalidade ou pack, como te der mais jeito." },
   { n: "2", title: "Paga online", text: "Pagamento seguro em menos de um minuto." },
-  { n: "3", title: "Marca a tua sessão", text: "Agendamos contigo a primeira avaliação." },
+  { n: "3", title: "Marca a tua sessão", text: "Agendamos contigo a primeira sessão." },
 ];
 
 export const plansNote =
-  "Também tens aulas de grupo a partir de 27,20 €/mês. Descontos de família (10%) e Member Get Member (15%). Sem taxa de inscrição e sem fidelização.";
+  "Descontos de família (10%) e Member Get Member (15%). Sem taxa de inscrição e sem fidelização.";
 
 export const testimonials = [
   {
@@ -345,17 +554,44 @@ export const finalCta = {
 };
 
 export const checkout = {
-  back: "Voltar aos planos",
+  back: "Voltar ao preçário",
   heading: "Finalizar inscrição",
-  intro: "Falta pouco. Confirma o plano e avança para o pagamento seguro.",
+  intro: "Falta pouco. Confirma o serviço e escolhe como pagar.",
   summaryTitle: "Resumo da inscrição",
   emailLabel: "O teu email",
   emailPlaceholder: "nome@email.com",
+  emailInvalid: "Indica um email válido.",
   cta: "Ir para pagamento seguro",
-  totalLabel: "Total hoje",
+  totalLabel: { mensal: "Mensalidade", pack: "Total a pagar" },
   secure: "Pagamento seguro processado pela EuPago",
-  terms: "Sem fidelização · cancelas quando quiseres · cobrança mensal",
+  terms: {
+    mensal: "Sem fidelização · cancelas quando quiseres",
+    pack: "Pagamento único · sem renovação automática",
+  },
+  included: {
+    mensal: "Sem fidelização: cancelas quando quiseres",
+    pack: "Pagas uma vez, sem renovações automáticas",
+  },
+  bimonthly: "Débito de 2 em 2 meses",
+  methods: { debito: "Débito direto", cartao: "Cartão" },
+  packNote: "Na página seguinte, da EuPago, escolhes o método de pagamento.",
+  cardNote: "Na página seguinte, da EuPago, introduzes o cartão com 3D Secure.",
+  debito: {
+    nameLabel: "Nome do titular da conta",
+    ibanLabel: "IBAN",
+    ibanPlaceholder: "PT50 0000 0000 0000 0000 0000 0",
+    bicLabel: "BIC / SWIFT",
+    bicHint: "Preenchido sozinho para os principais bancos portugueses. Confirma que está certo.",
+    consent:
+      "Autorizo o Connect Club, através da EuPago, a debitar na minha conta o valor da mensalidade, e o meu banco a efetuar esses débitos. Posso pedir o reembolso de um débito ao meu banco nas 8 semanas seguintes.",
+    cta: "Confirmar débito direto",
+    note: "Recebes o mandato por email. O primeiro débito acontece daqui a poucos dias.",
+    nameMissing: "Indica o nome do titular da conta.",
+    ibanInvalid: "O IBAN não parece válido. Confirma os dígitos.",
+    bicInvalid: "Indica o BIC/SWIFT do teu banco (8 ou 11 caracteres).",
+    consentMissing: "Para avançar, confirma a autorização de débito direto.",
+  },
   notConfigured:
-    "Versão de demonstração: o pagamento com cartão fica ativo assim que a conta EuPago do Connect Club for ligada.",
+    "Versão de demonstração: os pagamentos ficam ativos assim que a conta EuPago do Connect Club for ligada.",
   error: "Não foi possível iniciar o pagamento. Tenta novamente daqui a instantes.",
 };

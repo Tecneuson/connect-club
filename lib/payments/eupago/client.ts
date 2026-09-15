@@ -296,8 +296,11 @@ export function revokeSubscription(transactionId: string | number) {
 }
 
 /* --------------------------------------------------------------------------
-   Débito Direto SEPA — alternativa de comissão mais baixa ao cartão.
-   Fica disponível para quando o clube quiser oferecer pagamento por IBAN.
+   Débito Direto SEPA — as mensalidades.
+
+   Criado servidor a servidor: não há formulário da EuPago. A EuPago gera o
+   mandato em PDF e envia-o ao `debtor.email`. O `reference` devolvido é o ID
+   da autorização (mandato).
 -------------------------------------------------------------------------- */
 
 export type DirectDebitInput = {
@@ -306,25 +309,39 @@ export type DirectDebitInput = {
     name: string;
     email: string;
     iban: string;
+    /** Obrigatório para a EuPago, mesmo com IBAN português. */
     bic: string;
     address?: { street?: string; zipCode?: string; locality?: string; country?: string };
+    /** Avisa o devedor antes de cada débito. */
     collectionNotify?: boolean;
   };
   amount: number;
   /** Data do primeiro débito, YYYY-MM-DD. */
-  startDate: string;
-  collectionDay: number;
+  startDate?: string;
+  /** Obrigatório quando há `periodicity` num RCUR. */
+  collectionDay?: number;
   limitDate: string;
+  /** A EuPago não tem bimestral: Semanal, Quinzenal, Mensal, Trimestral, Semestral ou Anual. */
   periodicity?: Periodicity;
+  /** "1" = a EuPago debita sozinha; "0" = cada débito é lançado por nós. */
   autoProcess?: "0" | "1";
-  /** FRST = primeiro débito de uma série; RCUR = recorrente. */
-  type?: "FRST" | "RCUR" | "OOFF";
+  /** RCUR = série de débitos; OOFF = débito único. */
+  type?: "RCUR" | "OOFF";
+  /** URL chamado quando um débito é pago. */
   adminCallback?: string;
 };
 
+export type DirectDebitAuthorizationResponse = {
+  transactionStatus: string;
+  /** ID do mandato (authorizationId). */
+  reference: string;
+};
+
 /** POST /v1.02/directdebit/authorization */
-export function createDirectDebitAuthorization(input: DirectDebitInput): Promise<unknown> {
-  return request({
+export function createDirectDebitAuthorization(
+  input: DirectDebitInput,
+): Promise<DirectDebitAuthorizationResponse> {
+  return request<DirectDebitAuthorizationResponse>({
     path: "/v1.02/directdebit/authorization",
     body: {
       identifier: input.identifier,
@@ -338,14 +355,70 @@ export function createDirectDebitAuthorization(input: DirectDebitInput): Promise
         ...(input.debtor.address ? { address: input.debtor.address } : {}),
       },
       payment: {
-        date: input.startDate,
+        ...(input.startDate ? { date: input.startDate } : {}),
         amount: Number(input.amount.toFixed(2)),
         autoProcess: input.autoProcess ?? "1",
-        collectionDay: input.collectionDay,
+        ...(input.collectionDay ? { collectionDay: input.collectionDay } : {}),
         limitDate: input.limitDate,
         type: input.type ?? "RCUR",
         ...(input.periodicity ? { periodicity: input.periodicity } : {}),
       },
+    },
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Pay By Link — os packs.
+
+   Página de pagamento da EuPago onde o cliente escolhe o método (MB WAY,
+   Multibanco, cartão — os que estiverem ativos na conta; a API não os filtra).
+-------------------------------------------------------------------------- */
+
+export type PayByLinkInput = {
+  identifier: string;
+  amount: number;
+  currency?: string;
+  lang?: string;
+  successUrl: string;
+  failUrl: string;
+  backUrl: string;
+  customerEmail?: string;
+  customerName?: string;
+};
+
+export type PayByLinkResponse = {
+  transactionStatus: string;
+  transactionID: string;
+  status?: string;
+  redirectUrl: string;
+};
+
+/** POST /v1.02/paybylink/create */
+export function createPayByLink(input: PayByLinkInput): Promise<PayByLinkResponse> {
+  return request<PayByLinkResponse>({
+    path: "/v1.02/paybylink/create",
+    body: {
+      payment: {
+        identifier: input.identifier,
+        amount: {
+          value: Number(input.amount.toFixed(2)),
+          currency: input.currency ?? "EUR",
+        },
+        lang: input.lang ?? "PT",
+        successUrl: input.successUrl,
+        failUrl: input.failUrl,
+        backUrl: input.backUrl,
+      },
+      ...(input.customerEmail
+        ? {
+            customer: {
+              notify: true,
+              email: input.customerEmail,
+              // Sim, em português: é assim que a API da EuPago chama ao campo.
+              ...(input.customerName ? { nome: input.customerName } : {}),
+            },
+          }
+        : {}),
     },
   });
 }

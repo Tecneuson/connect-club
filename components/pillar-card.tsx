@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Dumbbell, Zap, Users, Apple, Flower2, type LucideIcon } from "lucide-react";
 import type { Pillar } from "@/lib/content";
 
@@ -31,8 +30,10 @@ export function PillarCard({ item }: { item: Pillar }) {
     el.currentTime = 0;
   }
 
+  // <a> normal e não <Link>: o preçário abre o separador certo ao ouvir o
+  // `hashchange`, e o router do Next muda o hash sem disparar esse evento.
   return (
-    <Link
+    <a
       href={item.href}
       onMouseEnter={play}
       onMouseLeave={stop}
@@ -67,9 +68,9 @@ export function PillarCard({ item }: { item: Pillar }) {
         <h3 className="text-lg leading-snug">{item.title}</h3>
         <p className="mt-1.5 text-[13px] leading-relaxed text-cream/75">{item.text}</p>
         <span className="mt-3 inline-block text-xs font-medium uppercase tracking-wide text-gold-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          Ver planos
+          Ver preços
         </span>
       </div>
-    </Link>
+    </a>
   );
 }
